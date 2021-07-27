@@ -9,6 +9,9 @@ export class PlayButtonControl extends Component {
     this.node.on(Node.EventType.TOUCH_END, () => {
       this.node.emit(MAIN_MENU_CONTROL_EVENT.TOUCH_END);
     })
+    this.node.on(Node.EventType.TOUCH_START, () => {
+      this.node.emit(MAIN_MENU_CONTROL_EVENT.TOUCH_START);
+    })
   }
 }
 

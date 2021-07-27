@@ -18,6 +18,7 @@ export class AudioManager extends Component {
     name: string,
     protected readonly audioKey: ASSET_KEY,
     protected loop = false,
+    protected volume = 1,
   ) {
     super(name)
   }
@@ -33,13 +34,14 @@ export class AudioManager extends Component {
   }
   
   private setupAudio() {
-    const { audioSource, loop } = this;
+    const { audioSource, loop, volume } = this;
     const audioClip = this.getAudioClip();
 
     if (!audioSource || !audioClip) return;
 
     audioSource.clip = audioClip;
     audioSource.loop = loop;
+    audioSource.volume = volume;
   }
 
   play() {
@@ -48,7 +50,7 @@ export class AudioManager extends Component {
   }
 
   stop() {
-      this.audioSource?.stop();
+    this.audioSource?.stop();
   }
 
 }

@@ -11,6 +11,7 @@ import {
   Color,
 } from 'cc';
 import { BackgroundMusic } from '../../audio/BackgroundMusic';
+import { ButtonSfx } from '../../audio/ButtonSfx';
 import { PlayButtonControl } from '../../control/PlayButtonControl';
 import { ASSET_KEY } from '../../enum/asset';
 import { MAIN_MENU_CONTROL_EVENT } from '../../enum/mainMenuControl';
@@ -24,6 +25,9 @@ export class MainMenu extends Component {
 
   @property(BackgroundMusic)
   public readonly backgroundMusic?: BackgroundMusic;
+
+  @property(ButtonSfx)
+  public readonly buttonSfx?: ButtonSfx;
 
   @property(RichText)
   public readonly highscoreTitle?: RichText;
@@ -87,6 +91,9 @@ export class MainMenu extends Component {
 
   private setupPlayButton () {
     this.playButtonControl?.registerTouchEvent();
+    this.playButtonControl?.node.once(MAIN_MENU_CONTROL_EVENT.TOUCH_START, () => {
+      this.buttonSfx?.play();
+    })
     this.playButtonControl?.node.once(MAIN_MENU_CONTROL_EVENT.TOUCH_END, () => {
       console.log('___TAP_PLAY_BUTTON___')
     })
