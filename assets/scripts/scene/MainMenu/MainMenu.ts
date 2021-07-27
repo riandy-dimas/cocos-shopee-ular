@@ -6,10 +6,14 @@ import {
   Node,
   assetManager,
   TTFFont,
+  Label,
+  Sprite,
+  Color,
 } from 'cc';
 import { BackgroundMusic } from '../../audio/BackgroundMusic';
 import { ASSET_KEY } from '../../enum/asset';
 import { MainMenuLogo } from '../../sprite/MainMenuLogo';
+import { PlayButton } from './PlayButton';
 const { ccclass, property } = _decorator;
 
 @ccclass('MainMenu')
@@ -28,9 +32,12 @@ export class MainMenu extends Component {
   @property(MainMenuLogo)
   public readonly gameLogo?: MainMenuLogo;
 
+  @property(PlayButton)
+  public readonly playButton?: PlayButton;
+
   onLoad () {
     this.fontTtf = this.getFont();
-    this.setupFont();
+    this.setupText();
     this.setHighscoreText('Highscore');
     this.setHighscoreValue(0);
   }
@@ -39,7 +46,7 @@ export class MainMenu extends Component {
     this.backgroundMusic?.play();
   }
 
-  private setupFont () {
+  private setupText () {
     const { highscoreValue, highscoreTitle, fontTtf } = this;
     if (highscoreTitle) {
       highscoreTitle.font = fontTtf;

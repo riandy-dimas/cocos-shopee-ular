@@ -36,7 +36,6 @@ export class LoadingScreen extends Component {
       loadingProgress.updatePercentText(progress, key);
     });
     
-    
     assetLoader.node.on(ASSET_LOADER_EVENT.ASSET_LOAD_FAILURE, () => {
       console.log('ERROR_FETCHING_DATA!');
     })
