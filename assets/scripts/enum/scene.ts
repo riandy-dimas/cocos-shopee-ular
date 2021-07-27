@@ -1,6 +1,6 @@
 export enum SCENE_KEY {
-    LOADING_SCREEN = 'LOADING_SCREEN',
-    MAIN_MENU = 'MAIN_MENU',
-    GAME = 'GAME',
+    LOADING_SCREEN = 'LoadingScreen',
+    MAIN_MENU = 'MainMenu',
+    GAME = 'Game',
   }
   

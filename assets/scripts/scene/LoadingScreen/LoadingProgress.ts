@@ -17,6 +17,10 @@ export class LoadingProgress extends Component {
 
     if (textPercentLoaded) {
       textPercentLoaded.string = `<color=${ASSET_LOADER_STYLE.TEXT_PERCENT_COLOR}>${progressPercent}%</color>`;
+
+      if (progressPercent === 100) {
+        textPercentLoaded.string = `<color=${ASSET_LOADER_STYLE.TEXT_PERCENT_COLOR}>Tap to start!</color>`
+      }
     }
 
     if (this.progressBarLoaded) {
