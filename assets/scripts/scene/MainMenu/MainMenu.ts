@@ -11,7 +11,9 @@ import {
   Color,
 } from 'cc';
 import { BackgroundMusic } from '../../audio/BackgroundMusic';
+import { PlayButtonControl } from '../../control/PlayButtonControl';
 import { ASSET_KEY } from '../../enum/asset';
+import { MAIN_MENU_CONTROL_EVENT } from '../../enum/mainMenuControl';
 import { MainMenuLogo } from '../../sprite/MainMenuLogo';
 import { PlayButton } from './PlayButton';
 const { ccclass, property } = _decorator;
@@ -35,6 +37,9 @@ export class MainMenu extends Component {
   @property(PlayButton)
   public readonly playButton?: PlayButton;
 
+  @property(PlayButtonControl)
+  public readonly playButtonControl?: PlayButtonControl;
+
   onLoad () {
     this.fontTtf = this.getFont();
     this.setupText();
@@ -44,6 +49,7 @@ export class MainMenu extends Component {
 
   start () {
     this.backgroundMusic?.play();
+    this.setupPlayButton();
   }
 
   private setupText () {
@@ -77,6 +83,13 @@ export class MainMenu extends Component {
   private getFont() {
     const result = assetManager.assets.get(ASSET_KEY.SHOPEE_FONT);
     return result as TTFFont;
+  }
+
+  private setupPlayButton () {
+    this.playButtonControl?.registerTouchEvent();
+    this.playButtonControl?.node.once(MAIN_MENU_CONTROL_EVENT.TOUCH_END, () => {
+      console.log('___TAP_PLAY_BUTTON___')
+    })
   }
 
 }
