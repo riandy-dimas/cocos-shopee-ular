@@ -1,19 +1,15 @@
 
 import { _decorator, Component, Node } from 'cc';
-import { ASSET_KEY } from '../enum/asset';
-import { SpriteManager } from './SpriteManager';
+import { MAIN_MENU_CONTROL_EVENT } from '../enum/mainMenuControl';
 const { ccclass, property } = _decorator;
 
-@ccclass('SoundLogo')
-export class SoundLogo extends SpriteManager {
-  constructor () {
-    super('MainMenuLogo', ASSET_KEY.SOUND_ON);
+@ccclass('SoundToggleControl')
+export class SoundToggleControl extends Component {
+  public registerTouchEvent() {
+    this.node.on(Node.EventType.TOUCH_END, () => {
+      this.node.emit(MAIN_MENU_CONTROL_EVENT.TOUCH_END);
+    })
   }
-  
-  onLoad () {
-    super.onLoad();
-  }
-  
 }
 
 /**

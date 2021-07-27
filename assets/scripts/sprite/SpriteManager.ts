@@ -48,13 +48,13 @@ export class SpriteManager extends Component {
       this.adjustSize();
     }
     
-    protected getSpriteFrame() {
-      return assetManager.assets.get(getSpriteFrameKey(this.textureKey, this.frameKey)) as SpriteFrame;
+    protected getSpriteFrame(textureKey?: string, frameKey?: number | string) {
+      return assetManager.assets.get(getSpriteFrameKey(textureKey || this.textureKey, frameKey || this.frameKey)) as SpriteFrame;
     }
     
-    protected setupSprite() {
+    protected setupSprite(textureKey?: string, frameKey?: number | string) {
       if (this.sprite) {
-        this.sprite.spriteFrame = this.getSpriteFrame();
+        this.sprite.spriteFrame = this.getSpriteFrame(textureKey, frameKey);
       }
     }
     
