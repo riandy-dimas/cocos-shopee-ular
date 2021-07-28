@@ -17,6 +17,7 @@ import { PlayButtonControl } from '../../control/PlayButtonControl';
 import { ASSET_KEY } from '../../enum/asset';
 import { MAIN_MENU_CONTROL_EVENT } from '../../enum/mainMenuControl';
 import { SCENE_KEY } from '../../enum/scene';
+import { GlobalData } from '../../globalData';
 import { MainMenuLogo } from '../../sprite/MainMenuLogo';
 import { PlayButton } from './PlayButton';
 const { ccclass, property } = _decorator;
@@ -45,6 +46,9 @@ export class MainMenu extends Component {
 
   @property(BackgroundMusic)
   public readonly bgMusic?: BackgroundMusic;
+
+  @property(GlobalData)
+  public readonly globalData?: GlobalData;
 
   onLoad () {
     this.fontTtf = this.getFont();
@@ -94,14 +98,18 @@ export class MainMenu extends Component {
   private setupPlayButton () {
     this.playButtonControl?.registerTouchEvent();
     this.playButtonControl?.node.on(Node.EventType.TOUCH_END, () => {
-      console.log('___TAP_PLAY_BUTTON___');
+      const isSoundOn = this.globalData?.getData('isSoundOn') || false
 
-      this.buttonSfx?.play('lhoooo');
-      const duration = this.buttonSfx?.getDuration() || 0;
-
-      setTimeout(() => {
+      if (isSoundOn) {
+        this.buttonSfx?.play();
+        const duration = this.buttonSfx?.getDuration() || 0;
+  
+        setTimeout(() => {
+          this.redirectToGameScene();
+        }, duration * 1000 - 500)
+      } else {
         this.redirectToGameScene();
-      }, duration * 1000 - 500)
+      }
     })
   }
 
