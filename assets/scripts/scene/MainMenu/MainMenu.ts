@@ -9,11 +9,13 @@ import {
   Label,
   Sprite,
   Color,
+  director,
 } from 'cc';
 import { ButtonSfx } from '../../audio/ButtonSfx';
 import { PlayButtonControl } from '../../control/PlayButtonControl';
 import { ASSET_KEY } from '../../enum/asset';
 import { MAIN_MENU_CONTROL_EVENT } from '../../enum/mainMenuControl';
+import { SCENE_KEY } from '../../enum/scene';
 import { MainMenuLogo } from '../../sprite/MainMenuLogo';
 import { PlayButton } from './PlayButton';
 const { ccclass, property } = _decorator;
@@ -90,8 +92,13 @@ export class MainMenu extends Component {
       this.buttonSfx?.play();
     })
     this.playButtonControl?.node.once(MAIN_MENU_CONTROL_EVENT.TOUCH_END, () => {
-      console.log('___TAP_PLAY_BUTTON___')
+      console.log('___TAP_PLAY_BUTTON___');
+      this.redirectToGameScene();
     })
+  }
+
+  private redirectToGameScene () {
+    director.loadScene(SCENE_KEY.GAME);
   }
 
 }
