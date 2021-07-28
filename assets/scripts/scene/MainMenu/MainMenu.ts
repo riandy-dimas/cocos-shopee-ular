@@ -10,7 +10,6 @@ import {
   Sprite,
   Color,
 } from 'cc';
-import { BackgroundMusic } from '../../audio/BackgroundMusic';
 import { ButtonSfx } from '../../audio/ButtonSfx';
 import { PlayButtonControl } from '../../control/PlayButtonControl';
 import { ASSET_KEY } from '../../enum/asset';
@@ -22,9 +21,6 @@ const { ccclass, property } = _decorator;
 @ccclass('MainMenu')
 export class MainMenu extends Component {
   private fontTtf: TTFFont | null = null;
-
-  @property(BackgroundMusic)
-  public readonly backgroundMusic?: BackgroundMusic;
 
   @property(ButtonSfx)
   public readonly buttonSfx?: ButtonSfx;
@@ -52,7 +48,6 @@ export class MainMenu extends Component {
   }
 
   start () {
-    this.backgroundMusic?.play();
     this.setupPlayButton();
   }
 

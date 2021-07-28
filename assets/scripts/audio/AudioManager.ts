@@ -33,7 +33,11 @@ export class AudioManager extends Component {
     return result as AudioClip;
   }
   
-  private setupAudio() {
+  /**
+   * If volume args passed, play the audio;
+   * @param vol Volume to be set 0.0 to 1.0
+   */
+  protected setupAudio(vol?: number) {
     const { audioSource, loop, volume } = this;
     const audioClip = this.getAudioClip();
 
@@ -41,7 +45,11 @@ export class AudioManager extends Component {
 
     audioSource.clip = audioClip;
     audioSource.loop = loop;
-    audioSource.volume = volume;
+    audioSource.volume = vol || volume;
+
+    if (typeof vol !== 'undefined') {
+      audioSource.play();
+    }
   }
 
   play() {
