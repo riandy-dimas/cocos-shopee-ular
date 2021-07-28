@@ -11,6 +11,7 @@ import {
   Color,
   director,
 } from 'cc';
+import { BackgroundMusic } from '../../audio/BackgroundMusic';
 import { ButtonSfx } from '../../audio/ButtonSfx';
 import { PlayButtonControl } from '../../control/PlayButtonControl';
 import { ASSET_KEY } from '../../enum/asset';
@@ -42,6 +43,9 @@ export class MainMenu extends Component {
   @property(PlayButtonControl)
   public readonly playButtonControl?: PlayButtonControl;
 
+  @property(BackgroundMusic)
+  public readonly bgMusic?: BackgroundMusic;
+
   onLoad () {
     this.fontTtf = this.getFont();
     this.setupText();
@@ -50,6 +54,7 @@ export class MainMenu extends Component {
   }
 
   start () {
+    this.bgMusic?.play();
     this.setupPlayButton();
   }
 

@@ -11,8 +11,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass('SoundToggleButton')
 export class SoundToggleButton extends SpriteManager {
-  @property(BackgroundMusic)
-  public readonly backgroundMusic?: BackgroundMusic;
+  private bgMusic?: BackgroundMusic | null
 
   @property(GlobalData)
   public readonly globalData?: GlobalData;
@@ -27,10 +26,10 @@ export class SoundToggleButton extends SpriteManager {
   onLoad () {
     super.onLoad();
     this.soundToggleControl?.registerTouchEvent();
+    this.bgMusic = this.node.scene?.getComponentInChildren(BackgroundMusic);
   }
   
   start () {
-    this.backgroundMusic?.play();
     this.setupToggleButton();
   }
   
@@ -50,11 +49,11 @@ export class SoundToggleButton extends SpriteManager {
         console.log('___SOUND_TAP_', isSoundOn)
         if (isSoundOn) {
           saveData({ isSoundOn: false })
-          this.backgroundMusic?.stop();
+          this.bgMusic?.stop();
           this.setToOff()
         } else {
           saveData({ isSoundOn: true })
-          this.backgroundMusic?.play();
+          this.bgMusic?.play();
           this.setToOn()
         } 
       }
