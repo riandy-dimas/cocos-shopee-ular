@@ -10,7 +10,8 @@ export class BackgroundMusic extends AudioManager {
     super('BackgroundMusic', ASSET_KEY.BACKGROUND_MUSIC, true)
   }
 
-  setVolume (volume: number) {
+  /** Set background music volume and then play it */
+  setVolumeAndPlay (volume: number) {
     super.setupAudio(volume)
   }
 }

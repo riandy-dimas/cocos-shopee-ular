@@ -54,7 +54,7 @@ export class MainMenu extends Component {
   }
 
   start () {
-    this.bgMusic?.play();
+    this.bgMusic?.play('from main menu start');
     this.setupPlayButton();
   }
 
@@ -93,17 +93,21 @@ export class MainMenu extends Component {
 
   private setupPlayButton () {
     this.playButtonControl?.registerTouchEvent();
-    this.playButtonControl?.node.once(MAIN_MENU_CONTROL_EVENT.TOUCH_START, () => {
-      this.buttonSfx?.play();
-    })
-    this.playButtonControl?.node.once(MAIN_MENU_CONTROL_EVENT.TOUCH_END, () => {
+    this.playButtonControl?.node.on(Node.EventType.TOUCH_END, () => {
       console.log('___TAP_PLAY_BUTTON___');
-      this.redirectToGameScene();
+
+      this.buttonSfx?.play('lhoooo');
+      const duration = this.buttonSfx?.getDuration() || 0;
+
+      setTimeout(() => {
+        this.redirectToGameScene();
+      }, duration * 1000 - 500)
     })
   }
 
   private redirectToGameScene () {
-    director.loadScene(SCENE_KEY.GAME);
+    director.loadScene(SCENE_KEY.GAME, (err, scene) => {
+    });
   }
 
 }

@@ -25,11 +25,16 @@ export class SoundToggleButton extends SpriteManager {
   
   onLoad () {
     super.onLoad();
-    this.soundToggleControl?.registerTouchEvent();
     this.bgMusic = this.node.scene?.getComponentInChildren(BackgroundMusic);
   }
   
   start () {
+    if (this.globalData) {
+      const { saveData } = this.globalData
+      const isSoundOn = this.globalData.getData('isSoundOn')
+      this.handleToggleButtonUI(!isSoundOn, saveData);
+      this.handleToggleAudio(!isSoundOn);
+    }
     this.setupToggleButton();
   }
   
@@ -40,22 +45,36 @@ export class SoundToggleButton extends SpriteManager {
   public setToOn () {
     super.setupSprite(ASSET_KEY.SOUND_ON)
   }
+
+  private handleToggleButtonUI (isSoundOn: boolean, saveData: GlobalData['saveData']) {
+    if (isSoundOn) {
+      saveData({ isSoundOn: false })
+      this.setToOff()
+    } else {
+      saveData({ isSoundOn: true })
+      this.setToOn()
+    } 
+  }
+
+  private handleToggleAudio (isSoundOn: boolean) {
+    if (isSoundOn) {
+      this.bgMusic?.pause();
+      this.setToOff()
+    } else {
+      this.bgMusic?.play();
+      this.setToOn()
+    } 
+  }
   
   private setupToggleButton () {
+    this.soundToggleControl?.registerTouchEvent();
     this.soundToggleControl?.node.on(MAIN_MENU_CONTROL_EVENT.TOUCH_END, () => {
       if (this.globalData) {
         const { getData, saveData } = this.globalData;
         const isSoundOn = getData('isSoundOn');
-        console.log('___SOUND_TAP_', isSoundOn)
-        if (isSoundOn) {
-          saveData({ isSoundOn: false })
-          this.bgMusic?.stop();
-          this.setToOff()
-        } else {
-          saveData({ isSoundOn: true })
-          this.bgMusic?.play();
-          this.setToOn()
-        } 
+
+        this.handleToggleButtonUI(isSoundOn, saveData)
+        this.handleToggleAudio(isSoundOn);
       }
     })
   }

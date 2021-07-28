@@ -19,8 +19,10 @@ export class AudioManager extends Component {
     protected readonly audioKey: ASSET_KEY,
     protected loop = false,
     protected volume = 1,
+    protected shouldPlayAwake = false,
   ) {
     super(name)
+    console.log('___constructor_audio_manager', name)
   }
   
   private reload () {
@@ -38,7 +40,7 @@ export class AudioManager extends Component {
    * @param vol Volume to be set 0.0 to 1.0
    */
   protected setupAudio(vol?: number) {
-    const { audioSource, loop, volume } = this;
+    const { audioSource, loop, volume, shouldPlayAwake } = this;
     const audioClip = this.getAudioClip();
 
     if (!audioSource || !audioClip) return;
@@ -46,19 +48,33 @@ export class AudioManager extends Component {
     audioSource.clip = audioClip;
     audioSource.loop = loop;
     audioSource.volume = vol || volume;
+    audioSource.playOnAwake = shouldPlayAwake;
 
-    if (typeof vol !== 'undefined') {
-      audioSource.play();
-    }
+    // if (typeof vol !== 'undefined') {
+    //   audioSource.play();
+    // }
   }
 
-  play() {
+  play(param?: string) {
+    console.log('_____PLAY_AUDIO', param)
     this.reload();
     this.audioSource?.play();
   }
 
   stop() {
     this.audioSource?.stop();
+  }
+
+  pause() {
+    this.audioSource?.pause();
+  }
+
+  isPlaying() {
+    return this.audioSource?.playing || false
+  }
+
+  getDuration () {
+    return this.audioSource?.duration;
   }
 
 }

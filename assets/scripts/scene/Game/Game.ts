@@ -1,20 +1,30 @@
 
-import { _decorator, Component, Node } from 'cc';
+import { _decorator, Component, Node, director } from 'cc';
 import { BackgroundMusic } from '../../audio/BackgroundMusic';
+import { SCENE_KEY } from '../../enum/scene';
+import { GlobalData } from '../../globalData';
 const { ccclass, property } = _decorator;
 
 @ccclass('Game')
 export class Game extends Component {
   private bgMusic?: BackgroundMusic | null
+
+  @property(GlobalData)
+  public readonly globalData?: GlobalData;
   
   onLoad () {
     this.bgMusic = this.node.scene?.getComponentInChildren(BackgroundMusic);
   }
 
   start () {
-    // setTimeout(() => {
-    //   this.bgMusic?.stop()
-    // }, 2000)
+    if (this.globalData) {
+      const isSoundOn = this.globalData.getData('isSoundOn');
+      console.log('isSoundOn___GAME', isSoundOn, this.bgMusic)
+    }
+  }
+
+  redirectToMainMenu () {
+    director.loadScene(SCENE_KEY.MAIN_MENU)
   }
   
 }

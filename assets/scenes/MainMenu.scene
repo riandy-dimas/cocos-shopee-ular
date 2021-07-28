@@ -24,7 +24,7 @@
         "__id__": 38
       },
       {
-        "__id__": 62
+        "__id__": 61
       }
     ],
     "_active": true,
@@ -106,9 +106,7 @@
     "playButtonControl": {
       "__id__": 58
     },
-    "bgMusic": {
-      "__id__": 61
-    },
+    "bgMusic": null,
     "_id": "65+Vh3z/ZKNIwpN65gmcPC"
   },
   {
@@ -1449,7 +1447,7 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "_id": "8e09tZk2NJR4kESDJL+i64"
+    "_id": "43Xz642cBEPazpmnKTjYVE"
   },
   {
     "__type__": "cc.UITransform",
@@ -1488,19 +1486,8 @@
     "_id": "bf2UkV/MJN2qDHgz4o+2EX"
   },
   {
-    "__type__": "51073XA6LdH8pBoKPN4UuDD",
-    "_name": "BackgroundMusic",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 62
-    },
-    "_enabled": true,
-    "__prefab": null,
-    "_id": "12vQZ8NRNPk5n4Xw0AVn+Q"
-  },
-  {
     "__type__": "cc.Node",
-    "_name": "BGMusic",
+    "_name": "BG Music",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -1509,7 +1496,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 61
+        "__id__": 62
       },
       {
         "__id__": 63
@@ -1545,14 +1532,36 @@
       "y": 0,
       "z": 0
     },
-    "_id": "3bZ3FgQ19NpqZEZ4oT3rdN"
+    "_id": "20YyBbnIZM0oUMYoY6aORG"
+  },
+  {
+    "__type__": "51073XA6LdH8pBoKPN4UuDD",
+    "_name": "BackgroundMusic",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 61
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_id": "c8RoWjHeBEhrvJnBxFiu3i"
+  },
+  {
+    "__type__": "f8b12p0IOZNGLHHFxyC9X3Q",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 61
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_id": "e9oZ6lLlpPHK67aAXjCoAH"
   },
   {
     "__type__": "cc.AudioSource",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 62
+      "__id__": 61
     },
     "_enabled": true,
     "__prefab": null,
@@ -1560,18 +1569,7 @@
     "_loop": false,
     "_playOnAwake": true,
     "_volume": 1,
-    "_id": "6ckrSPEH5N7oDweqS8ID76"
-  },
-  {
-    "__type__": "f8b12p0IOZNGLHHFxyC9X3Q",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 62
-    },
-    "_enabled": true,
-    "__prefab": null,
-    "_id": "d8MK08Qi1MqqkWC0YJfv6B"
+    "_id": "74dQASkFpCSrweEHdMBqbx"
   },
   {
     "__type__": "cc.SceneGlobals",
