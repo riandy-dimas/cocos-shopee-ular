@@ -63,15 +63,19 @@ export function getAssets() {
   
   assets.push({
     key: ASSET_KEY.TILE_PANEL,
-    type: ASSET_TYPE.IMAGE,
+    type: ASSET_TYPE.SPRITESHEET,
     url: '',
-    localUrl: 'image/game/sprite_tile'
+    localUrl: 'image/game/sprite_tile',
+    config: {
+      frameWidth: 48,
+      frameHeight: 48
+    }
   })
   assets.push({
     key: ASSET_KEY.WALL_OBJECT,
     type: ASSET_TYPE.IMAGE,
     url: '',
-    localUrl: 'image/game/sprite_wall'
+    localUrl: 'image/game/sprite_wall',
   })
   assets.push({
     key: ASSET_KEY.APPLE_OBJECT,

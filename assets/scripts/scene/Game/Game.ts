@@ -3,6 +3,7 @@ import { _decorator, Component, Node, director } from 'cc';
 import { BackgroundMusic } from '../../audio/BackgroundMusic';
 import { SCENE_KEY } from '../../enum/scene';
 import { GlobalData } from '../../globalData';
+import { GameBoard } from './GameBoard';
 const { ccclass, property } = _decorator;
 
 @ccclass('Game')
@@ -11,12 +12,16 @@ export class Game extends Component {
 
   @property(GlobalData)
   public readonly globalData?: GlobalData;
+
+  @property(GameBoard)
+  public readonly gameBoard?: GameBoard;
   
   onLoad () {
     this.bgMusic = this.node.scene?.getComponentInChildren(BackgroundMusic);
   }
 
   start () {
+    this.gameBoard?.generateBoard()
     if (this.globalData) {
       const isSoundOn = this.globalData.getData('isSoundOn');
     }

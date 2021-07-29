@@ -27,8 +27,8 @@ export class SpriteManager extends Component {
   
   constructor(
     name: string,
-    protected readonly textureKey: string,
-    protected readonly frameKey?: number | string,
+    protected textureKey: string,
+    protected frameKey?: number | string,
     ) {
       super(name);
     }
@@ -84,6 +84,14 @@ export class SpriteManager extends Component {
       if (this.sprite) {
         this.sprite.color = color;
       }
+    }
+    
+    public setFrame(frameKey?: number | string) {
+      this.frameKey = frameKey;
+    }
+    
+    public setTexture(textureKey: string) {
+      this.textureKey = textureKey;
     }
     
     update () {
