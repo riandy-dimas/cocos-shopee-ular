@@ -24,7 +24,7 @@
         "__id__": 38
       },
       {
-        "__id__": 61
+        "__id__": 62
       }
     ],
     "_active": true,
@@ -32,7 +32,7 @@
     "_prefab": null,
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 65
+      "__id__": 64
     },
     "_id": "991b7769-f5b1-4537-a746-b00d99d7910d"
   },
@@ -106,7 +106,12 @@
     "playButtonControl": {
       "__id__": 58
     },
-    "bgMusic": null,
+    "bgMusic": {
+      "__id__": 61
+    },
+    "globalData": {
+      "__id__": 37
+    },
     "_id": "65+Vh3z/ZKNIwpN65gmcPC"
   },
   {
@@ -118,6 +123,9 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "globalData": {
+      "__id__": 37
+    },
     "_id": "55qAcAKuNLG5fuyJlSH22w"
   },
   {
@@ -1486,6 +1494,20 @@
     "_id": "bf2UkV/MJN2qDHgz4o+2EX"
   },
   {
+    "__type__": "51073XA6LdH8pBoKPN4UuDD",
+    "_name": "BackgroundMusic",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 62
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "globalData": {
+      "__id__": 37
+    },
+    "_id": "d2SYLGQtpDarz3LGxYhNOG"
+  },
+  {
     "__type__": "cc.Node",
     "_name": "BG Music",
     "_objFlags": 0,
@@ -1496,13 +1518,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 62
+        "__id__": 61
       },
       {
         "__id__": 63
-      },
-      {
-        "__id__": 64
       }
     ],
     "_prefab": null,
@@ -1532,58 +1551,36 @@
       "y": 0,
       "z": 0
     },
-    "_id": "20YyBbnIZM0oUMYoY6aORG"
-  },
-  {
-    "__type__": "51073XA6LdH8pBoKPN4UuDD",
-    "_name": "BackgroundMusic",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 61
-    },
-    "_enabled": true,
-    "__prefab": null,
-    "_id": "c8RoWjHeBEhrvJnBxFiu3i"
-  },
-  {
-    "__type__": "f8b12p0IOZNGLHHFxyC9X3Q",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 61
-    },
-    "_enabled": true,
-    "__prefab": null,
-    "_id": "e9oZ6lLlpPHK67aAXjCoAH"
+    "_id": "28HYFEoXNCY4ewdHp1utXr"
   },
   {
     "__type__": "cc.AudioSource",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 61
+      "__id__": 62
     },
     "_enabled": true,
     "__prefab": null,
     "_clip": null,
     "_loop": false,
-    "_playOnAwake": true,
+    "_playOnAwake": false,
     "_volume": 1,
-    "_id": "74dQASkFpCSrweEHdMBqbx"
+    "_id": "f3HcyxT1JDA4BiYrz3coVS"
   },
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 66
+      "__id__": 65
     },
     "shadows": {
-      "__id__": 67
+      "__id__": 66
     },
     "_skybox": {
-      "__id__": 68
+      "__id__": 67
     },
     "fog": {
-      "__id__": 69
+      "__id__": 68
     }
   },
   {

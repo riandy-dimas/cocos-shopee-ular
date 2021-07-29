@@ -5,24 +5,59 @@ import {
   AudioSource,
   AudioClip,
   assetManager,
+  game,
   Node,
 } from 'cc';
 import { ASSET_KEY } from '../enum/asset';
+import { SOUND_TOGGLE_EVENT } from '../enum/soundToggle';
+import { GlobalData } from '../globalData';
 const { ccclass, property } = _decorator;
 
 @ccclass('AudioManager')
 export class AudioManager extends Component {
   private audioSource?: AudioSource | null;
 
+  @property(GlobalData)
+  public readonly globalData?: GlobalData;
+
   constructor (
     name: string,
     protected readonly audioKey: ASSET_KEY,
     protected loop = false,
     protected volume = 1,
-    protected shouldPlayAwake = false,
+    protected shouldPlayAwake = true,
   ) {
     super(name)
-    console.log('___constructor_audio_manager', name)
+  }
+
+  onLoad () {
+    game.on(SOUND_TOGGLE_EVENT.SOUND_TOGGLE, this.handleToggleSound, this)
+  }
+
+  private isSoundOn () {
+    const { globalData } = this
+
+    if (globalData) {
+      return globalData.getData('isSoundOn');
+    }
+
+    return false;
+  }
+
+  private handleToggleSound () {
+    this.setVolume(this.volume);
+  }
+
+  private setVolume (vol: number) {
+    const { audioSource } = this
+
+    if (!audioSource) return
+
+    if (this.isSoundOn()) {
+      audioSource.volume = vol;
+    } else {
+      audioSource.volume = 0;
+    }
   }
   
   private reload () {
@@ -39,7 +74,7 @@ export class AudioManager extends Component {
    * If volume args passed, play the audio;
    * @param vol Volume to be set 0.0 to 1.0
    */
-  protected setupAudio(vol?: number) {
+  protected setupAudio() {
     const { audioSource, loop, volume, shouldPlayAwake } = this;
     const audioClip = this.getAudioClip();
 
@@ -47,16 +82,12 @@ export class AudioManager extends Component {
 
     audioSource.clip = audioClip;
     audioSource.loop = loop;
-    audioSource.volume = vol || volume;
     audioSource.playOnAwake = shouldPlayAwake;
 
-    // if (typeof vol !== 'undefined') {
-    //   audioSource.play();
-    // }
+    this.setVolume(volume)
   }
 
-  play(param?: string) {
-    console.log('_____PLAY_AUDIO', param)
+  play() {
     this.reload();
     this.audioSource?.play();
   }

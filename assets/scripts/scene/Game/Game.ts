@@ -19,7 +19,6 @@ export class Game extends Component {
   start () {
     if (this.globalData) {
       const isSoundOn = this.globalData.getData('isSoundOn');
-      console.log('isSoundOn___GAME', isSoundOn, this.bgMusic)
     }
   }
 

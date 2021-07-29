@@ -1,0 +1,3 @@
+export enum SOUND_TOGGLE_EVENT {
+  SOUND_TOGGLE = 'SOUND_TOGGLE',
+}

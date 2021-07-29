@@ -1,9 +1,9 @@
 
-import { _decorator, Component, Node, Sprite } from 'cc';
-import { BackgroundMusic } from '../../audio/BackgroundMusic';
+import { _decorator, game } from 'cc';
 import { SoundToggleControl } from '../../control/SoundToggleControl';
 import { ASSET_KEY } from '../../enum/asset';
-import { MAIN_MENU_CONTROL_EVENT } from '../../enum/mainMenuControl';
+import { MAIN_MENU_CONTROL_EVENT } from '../../enum/mainMenu';
+import { SOUND_TOGGLE_EVENT } from '../../enum/soundToggle';
 import { GlobalData } from '../../globalData';
 import { SpriteManager } from '../../sprite/SpriteManager';
 
@@ -11,8 +11,6 @@ const { ccclass, property } = _decorator;
 
 @ccclass('SoundToggleButton')
 export class SoundToggleButton extends SpriteManager {
-  private bgMusic?: BackgroundMusic | null
-
   @property(GlobalData)
   public readonly globalData?: GlobalData;
   
@@ -25,7 +23,6 @@ export class SoundToggleButton extends SpriteManager {
   
   onLoad () {
     super.onLoad();
-    this.bgMusic = this.node.scene?.getComponentInChildren(BackgroundMusic);
   }
   
   start () {
@@ -33,7 +30,6 @@ export class SoundToggleButton extends SpriteManager {
       const { saveData } = this.globalData
       const isSoundOn = this.globalData.getData('isSoundOn')
       this.handleToggleButtonUI(!isSoundOn, saveData);
-      this.handleToggleAudio(!isSoundOn);
     }
     this.setupToggleButton();
   }
@@ -55,16 +51,6 @@ export class SoundToggleButton extends SpriteManager {
       this.setToOn()
     } 
   }
-
-  private handleToggleAudio (isSoundOn: boolean) {
-    if (isSoundOn) {
-      this.bgMusic?.pause();
-      this.setToOff()
-    } else {
-      this.bgMusic?.play();
-      this.setToOn()
-    } 
-  }
   
   private setupToggleButton () {
     this.soundToggleControl?.registerTouchEvent();
@@ -72,9 +58,9 @@ export class SoundToggleButton extends SpriteManager {
       if (this.globalData) {
         const { getData, saveData } = this.globalData;
         const isSoundOn = getData('isSoundOn');
+        this.handleToggleButtonUI(isSoundOn, saveData);
 
-        this.handleToggleButtonUI(isSoundOn, saveData)
-        this.handleToggleAudio(isSoundOn);
+        game.emit(SOUND_TOGGLE_EVENT.SOUND_TOGGLE);
       }
     })
   }

@@ -1,6 +1,6 @@
 
 import { _decorator, Component, Node } from 'cc';
-import { MAIN_MENU_CONTROL_EVENT } from '../enum/mainMenuControl';
+import { MAIN_MENU_CONTROL_EVENT } from '../enum/mainMenu';
 const { ccclass, property } = _decorator;
 
 @ccclass('SoundToggleControl')

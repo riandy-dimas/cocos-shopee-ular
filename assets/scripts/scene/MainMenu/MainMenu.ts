@@ -6,16 +6,17 @@ import {
   Node,
   assetManager,
   TTFFont,
-  Label,
-  Sprite,
-  Color,
+  find,
   director,
+  instantiate,
+  Director,
+  game,
 } from 'cc';
 import { BackgroundMusic } from '../../audio/BackgroundMusic';
 import { ButtonSfx } from '../../audio/ButtonSfx';
 import { PlayButtonControl } from '../../control/PlayButtonControl';
 import { ASSET_KEY } from '../../enum/asset';
-import { MAIN_MENU_CONTROL_EVENT } from '../../enum/mainMenuControl';
+import { PERSIST_NODE_NAME } from '../../enum/persistNode';
 import { SCENE_KEY } from '../../enum/scene';
 import { GlobalData } from '../../globalData';
 import { MainMenuLogo } from '../../sprite/MainMenuLogo';
@@ -25,43 +26,43 @@ const { ccclass, property } = _decorator;
 @ccclass('MainMenu')
 export class MainMenu extends Component {
   private fontTtf: TTFFont | null = null;
-
+  
   @property(ButtonSfx)
   public readonly buttonSfx?: ButtonSfx;
-
+  
   @property(RichText)
   public readonly highscoreTitle?: RichText;
-
+  
   @property(RichText)
   public readonly highscoreValue?: RichText;
-
+  
   @property(MainMenuLogo)
   public readonly gameLogo?: MainMenuLogo;
-
+  
   @property(PlayButton)
   public readonly playButton?: PlayButton;
-
+  
   @property(PlayButtonControl)
   public readonly playButtonControl?: PlayButtonControl;
-
+  
   @property(BackgroundMusic)
   public readonly bgMusic?: BackgroundMusic;
 
   @property(GlobalData)
   public readonly globalData?: GlobalData;
-
+  
   onLoad () {
     this.fontTtf = this.getFont();
     this.setupText();
     this.setHighscoreText('Highscore');
     this.setHighscoreValue(0);
   }
-
+  
   start () {
-    this.bgMusic?.play('from main menu start');
+    this.setupBgMusic();
     this.setupPlayButton();
   }
-
+  
   private setupText () {
     const { highscoreValue, highscoreTitle, fontTtf } = this;
     if (highscoreTitle) {
@@ -73,51 +74,64 @@ export class MainMenu extends Component {
       highscoreValue.fontSize = 48;
     }
   }
+  
+  private setupBgMusic () {
+    const { bgMusic } = this
+    
+    if (!bgMusic) return
+    
+    if (find(PERSIST_NODE_NAME.BACKGROUND_MUSIC)) return
+  
+    const node = instantiate(bgMusic.node);
+    node.name = PERSIST_NODE_NAME.BACKGROUND_MUSIC;
 
+    const bgMusicNode = node.getComponent(BackgroundMusic)
+    bgMusicNode?.play();
+    director.on(Director.EVENT_AFTER_SCENE_LAUNCH, () => {
+      node.getComponent(BackgroundMusic)?.play();
+    });
+    game.addPersistRootNode(node);
+    
+  }
+  
   private setHighscoreText (text: string) {
     const { highscoreTitle } = this;
-
+    
     if (highscoreTitle) {
       highscoreTitle.string = `<color=#FFFFFF>${text}</color>`;
     }
   }
-
+  
   public setHighscoreValue (value: number) {
     const { highscoreValue } = this;
-
+    
     if (highscoreValue) {
       highscoreValue.string = `<color=#FFFFFF>${value}</color>`;
     }
   }
-
+  
   private getFont() {
     const result = assetManager.assets.get(ASSET_KEY.SHOPEE_FONT);
     return result as TTFFont;
   }
-
+  
   private setupPlayButton () {
     this.playButtonControl?.registerTouchEvent();
     this.playButtonControl?.node.on(Node.EventType.TOUCH_END, () => {
-      const isSoundOn = this.globalData?.getData('isSoundOn') || false
-
-      if (isSoundOn) {
-        this.buttonSfx?.play();
-        const duration = this.buttonSfx?.getDuration() || 0;
+      this.buttonSfx?.play();
+      this.redirectToGameScene();
+    }, this)
+  }
   
-        setTimeout(() => {
-          this.redirectToGameScene();
-        }, duration * 1000 - 500)
-      } else {
-        this.redirectToGameScene();
-      }
-    })
-  }
-
+  
   private redirectToGameScene () {
-    director.loadScene(SCENE_KEY.GAME, (err, scene) => {
-    });
+    const duration = this.buttonSfx?.getDuration() || 0;
+    const isSoundOn = this.globalData?.getData('isSoundOn') || false
+    setTimeout(() => {
+      director.loadScene(SCENE_KEY.GAME);
+    }, isSoundOn ? duration * 1000 - 500 : 0)
   }
-
+  
 }
 
 /**
