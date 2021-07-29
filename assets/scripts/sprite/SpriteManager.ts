@@ -86,6 +86,12 @@ export class SpriteManager extends Component {
       }
     }
     
+    update () {
+      if (!this.sprite?.spriteFrame) {
+        this.reload();
+      }
+    }
+    
     
   }
   

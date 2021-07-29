@@ -1,5 +1,6 @@
 
-import { _decorator, Component, Node, RichText, ProgressBar } from 'cc';
+import { _decorator, Component, Node, RichText, ProgressBar, assetManager, TTFFont } from 'cc';
+import { ASSET_KEY } from '../../enum/asset';
 import { ASSET_LOADER_STYLE }  from '../../enum/assetLoader'
 const { ccclass, property } = _decorator;
 
@@ -16,6 +17,7 @@ export class LoadingProgress extends Component {
     const progressPercent = Math.floor(progress * 100);
 
     if (textPercentLoaded) {
+      textPercentLoaded.font = this.getFont();
       textPercentLoaded.string = `<color=${ASSET_LOADER_STYLE.TEXT_PERCENT_COLOR}>${progressPercent}%</color>`;
 
       if (progressPercent === 100) {
@@ -26,6 +28,11 @@ export class LoadingProgress extends Component {
     if (this.progressBarLoaded) {
       this.progressBarLoaded.progress = progress;
     }
+  }
+
+  private getFont() {
+    const result = assetManager.assets.get(ASSET_KEY.SHOPEE_FONT);
+    return result as TTFFont;
   }
 }
 

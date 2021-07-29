@@ -87,7 +87,11 @@ export class AudioManager extends Component {
     this.setVolume(volume)
   }
 
-  play() {
+  play(vol?: number) {
+    if (typeof vol !== 'undefined') {
+      this.volume = vol;
+    }
+
     this.reload();
     this.audioSource?.play();
   }

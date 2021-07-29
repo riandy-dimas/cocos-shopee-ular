@@ -7,6 +7,8 @@ import { LoadingProgress } from './LoadingProgress';
 import { LoadingScreenControl } from '../../control/LoadingScreenControl';
 import { LOADING_SCREEN_CONTROL_EVENT } from '../../enum/loadingScreenControl';
 import { GlobalData } from '../../globalData';
+import { BackgroundMusic } from '../../audio/BackgroundMusic';
+import { ASSET_KEY } from '../../enum/asset';
 const { ccclass, property } = _decorator;
 
 @ccclass('LoadingScreen')
@@ -22,6 +24,9 @@ export class LoadingScreen extends Component {
 
   @property(GlobalData)
   public readonly globalData?: GlobalData;
+
+  @property(BackgroundMusic)
+  public readonly bgMusic?: BackgroundMusic;
 
   onLoad () {
     this.globalData?.saveData({
@@ -58,6 +63,9 @@ export class LoadingScreen extends Component {
   }
   
   private onComplete () {
+    console.log('___LOAD_BG_MUSCI', this.bgMusic)
+    this.bgMusic?.play(0)
+
     this.loadingScreenControl?.registerTouchEvent();
     this.loadingScreenControl?.node.once(LOADING_SCREEN_CONTROL_EVENT.TOUCH_END, () => {
       this.redirectToMainMenuScene()
