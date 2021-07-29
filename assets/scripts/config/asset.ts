@@ -6,9 +6,9 @@ function getShopeeAssetUrl(url: string) {
 }
 
 /**
- * Get all the assets of the game, the assets are listed down here
- * @returns List of assets used in the game
- */
+* Get all the assets of the game, the assets are listed down here
+* @returns List of assets used in the game
+*/
 export function getAssets() {
   const assets = new Array<AssetConfig>();
   
@@ -46,14 +46,21 @@ export function getAssets() {
     url: '',
     localUrl: 'image/general/sprite_sound_on'
   })
-
+  
   // Game UI
   assets.push({
     key: ASSET_KEY.KEYPAD,
-    type: ASSET_TYPE.IMAGE,
+    type: ASSET_TYPE.SPRITESHEET,
     url: '',
-    localUrl: 'image/game/keypad'
-  })
+    localUrl: 'image/game/keypad',
+    config: {
+      frameWidth: 124,
+      frameHeight: 124,
+      paddingX: 20,
+      paddingY: 16
+    }
+  });
+  
   assets.push({
     key: ASSET_KEY.TILE_PANEL,
     type: ASSET_TYPE.IMAGE,
@@ -78,7 +85,7 @@ export function getAssets() {
     url: '',
     localUrl: 'image/game/sprite_trophy'
   })
-
+  
   // Snake Player
   assets.push({
     key: ASSET_KEY.SNAKE_OBJECT,
@@ -100,7 +107,7 @@ export function getAssets() {
       frameHeight: 96,
     }
   })
-
+  
   // General Audio
   assets.push({
     key: ASSET_KEY.BACKGROUND_MUSIC,
@@ -114,7 +121,7 @@ export function getAssets() {
     url: '',
     localUrl: 'audio/button-sfx'
   })
-
+  
   // In Game Audio
   assets.push({
     key: ASSET_KEY.CRASH_SFX,
