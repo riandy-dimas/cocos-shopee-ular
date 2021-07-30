@@ -109,6 +109,7 @@ export function getAssets() {
     config: {
       frameWidth: 96,
       frameHeight: 96,
+      paddingX: 1,
     }
   })
   

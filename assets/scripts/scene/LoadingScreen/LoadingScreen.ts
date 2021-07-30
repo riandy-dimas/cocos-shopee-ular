@@ -63,7 +63,6 @@ export class LoadingScreen extends Component {
   }
   
   private onComplete () {
-    console.log('___LOAD_BG_MUSCI', this.bgMusic)
     this.bgMusic?.play(0)
 
     this.loadingScreenControl?.registerTouchEvent();
@@ -74,6 +73,10 @@ export class LoadingScreen extends Component {
   
   private redirectToMainMenuScene () {
     director.loadScene(SCENE_KEY.MAIN_MENU);
+  }
+
+  onDestroy () {
+    this.bgMusic?.stop();
   }
 }
 
