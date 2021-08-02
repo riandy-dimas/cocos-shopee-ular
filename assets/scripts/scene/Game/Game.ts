@@ -23,10 +23,10 @@ export class Game extends Component {
   
   private dummySnake: TSnakeConfig = {
     parts: [
-      { x: 1, y: 3 },
-      { x: 1, y: 4 },
-      { x: 1, y: 5 },
-      { x: 1, y: 6 },
+      { x: 1, y: 1 },
+      { x: 2, y: 1 },
+      { x: 3, y: 1 },
+      { x: 4, y: 1 },
     ],
     velocity: {
       initial: 0.3,

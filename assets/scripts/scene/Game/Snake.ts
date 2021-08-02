@@ -43,14 +43,15 @@ export class Snake extends Component {
     }
     
     public adjustTextures() {
-        this.parts.reduce((previousPart, part) => {
+        this.parts.reduce<TSnakePart | null>((previousPart, part) => {
             this.adjustPartTexture(previousPart, part);
             return part;
-        });
+        }, null);
     }
     
-    public adjustPartTexture(previousPart: TSnakePart, part: TSnakePart) {
+    public adjustPartTexture(previousPart: TSnakePart | null, part: TSnakePart) {
         const { sprite } = part;
+
         if (previousPart) {
             const { x, y } = this.getDirectionBetweenParts(part, previousPart);
             
@@ -64,9 +65,7 @@ export class Snake extends Component {
             this.setPartDirection(part, x, y);
         } else {
             const { x, y } = this.movementDirection;
-            
             sprite.adjustTexture(SNAKE_BODY_PART.HEAD);
-            
             this.setPartDirection(part, x, y);
         }
     }
