@@ -1,6 +1,8 @@
 
 import { _decorator, Component, Node, director } from 'cc';
 import { BackgroundMusic } from '../../audio/BackgroundMusic';
+import { KeypadControl } from '../../control/KeypadControl';
+import { KEYPAD_EVENT } from '../../enum/keypad';
 import { SCENE_KEY } from '../../enum/scene';
 import { GlobalData } from '../../globalData';
 import { TSnakeConfig } from '../../interface/snake';
@@ -20,6 +22,9 @@ export class Game extends Component {
   
   @property(Snake)
   public readonly snake?: Snake;
+  
+  @property(KeypadControl)
+  public readonly keypadControl?: KeypadControl;
   
   private dummySnake: TSnakeConfig = {
     parts: [
@@ -43,6 +48,7 @@ export class Game extends Component {
   start () {
     this.gameBoard?.generateBoard()
     this.generateSnakeOnBoard(this.dummySnake)
+    this.setupKeypad()
   }
   
   redirectToMainMenu () {
@@ -61,6 +67,33 @@ export class Game extends Component {
       snake.addPart(x, y, posX, posY)
     })
     snake.createSnake(config)
+  }
+  
+  private setupKeypad () {
+    const { keypadControl: keypad } = this
+
+    if (!keypad) return
+
+    keypad.node.on(KEYPAD_EVENT.PRESS_UP, () => {
+      this.handleSnakeDirection(0, -1); 
+    });
+    
+    keypad.node.on(KEYPAD_EVENT.PRESS_RIGHT, () => {
+      this.handleSnakeDirection(1, 0);
+    });
+    
+    keypad.node.on(KEYPAD_EVENT.PRESS_DOWN, () => {
+      this.handleSnakeDirection(0, 1);
+    });
+    
+    keypad.node.on(KEYPAD_EVENT.PRESS_LEFT, () => {
+      this.handleSnakeDirection(-1, 0);
+    });
+    
+  }
+
+  private handleSnakeDirection (x: number, y: number) {
+    console.log('___HANDLE_SNAKE_DIRECTION', { x, y })
   }
   
 }

@@ -60,7 +60,7 @@
         "__id__": 33
       },
       {
-        "__id__": 69
+        "__id__": 92
       },
       {
         "__id__": 51
@@ -69,7 +69,7 @@
         "__id__": 63
       },
       {
-        "__id__": 76
+        "__id__": 70
       }
     ],
     "_active": true,
@@ -1293,6 +1293,9 @@
     "snake": {
       "__id__": 62
     },
+    "keypadControl": {
+      "__id__": 69
+    },
     "_id": "31uhvoOdpLuZJonDR8Yz0d"
   },
   {
@@ -1923,156 +1926,27 @@
     "_id": "69UktdlJFAoYMPIKN7xcxC"
   },
   {
-    "__type__": "cc.Node",
-    "_name": "Sound Toggle",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 2
-    },
-    "_children": [],
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 70
-      },
-      {
-        "__id__": 72
-      },
-      {
-        "__id__": 74
-      },
-      {
-        "__id__": 75
-      }
-    ],
-    "_prefab": null,
-    "_lpos": {
-      "__type__": "cc.Vec3",
-      "x": 160,
-      "y": 274,
-      "z": 0
-    },
-    "_lrot": {
-      "__type__": "cc.Quat",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 1
-    },
-    "_lscale": {
-      "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
-      "z": 1
-    },
-    "_layer": 33554432,
-    "_euler": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_id": "dcyoKjY7ZOa7YSKTPrWXG9"
-  },
-  {
-    "__type__": "cc.UITransform",
+    "__type__": "7bb4ajAUTdPE4wQIXq8TCnT",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 69
-    },
-    "_enabled": true,
-    "__prefab": {
-      "__id__": 71
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 24,
-      "height": 24
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
-    "_id": "62XXTS/8NKYYT0iKvNw0lT"
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "f7NISe7HdAD68SLfhnddy8"
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 69
-    },
-    "_enabled": true,
-    "__prefab": {
-      "__id__": 73
-    },
-    "_visFlags": 0,
-    "_customMaterial": null,
-    "_srcBlendFactor": 2,
-    "_dstBlendFactor": 4,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_spriteFrame": {
-      "__uuid__": "57520716-48c8-4a19-8acf-41c9f8777fb0@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
-    "_type": 1,
-    "_fillType": 0,
-    "_sizeMode": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_useGrayscale": false,
-    "_atlas": null,
-    "_id": "e73bBpohtLZoousOs7Ujqk"
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "e71ctEmpxFC4KlSYRZNz/a"
-  },
-  {
-    "__type__": "f1759/SK05PQb+/sOD8JT6L",
-    "_name": "SoundLogoOn",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 69
+      "__id__": 70
     },
     "_enabled": true,
     "__prefab": null,
-    "globalData": {
-      "__id__": 48
+    "keypadDown": {
+      "__id__": 85
     },
-    "soundToggleControl": {
+    "keypadLeft": {
+      "__id__": 80
+    },
+    "keypadRight": {
+      "__id__": 90
+    },
+    "keypadUp": {
       "__id__": 75
     },
-    "_id": "9dVIZEwdlN86Gx0PfaZuI3"
-  },
-  {
-    "__type__": "e919aa41u9Js4WVEvxOLr0G",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 69
-    },
-    "_enabled": true,
-    "__prefab": null,
-    "_id": "0448obi0lNEpNgXxamXyjO"
+    "_id": "04Jj7DjQJJ77qXOUTGUg8F"
   },
   {
     "__type__": "cc.Node",
@@ -2083,25 +1957,25 @@
     },
     "_children": [
       {
-        "__id__": 77
+        "__id__": 71
       },
       {
-        "__id__": 82
+        "__id__": 76
       },
       {
-        "__id__": 87
+        "__id__": 81
       },
       {
-        "__id__": 92
+        "__id__": 86
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 97
+        "__id__": 91
       },
       {
-        "__id__": 98
+        "__id__": 69
       }
     ],
     "_prefab": null,
@@ -2138,22 +2012,22 @@
     "_name": "KeypadUp",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 76
+      "__id__": 70
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 78
+        "__id__": 72
       },
       {
-        "__id__": 79
+        "__id__": 73
       },
       {
-        "__id__": 80
+        "__id__": 74
       },
       {
-        "__id__": 81
+        "__id__": 75
       }
     ],
     "_prefab": null,
@@ -2190,7 +2064,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 77
+      "__id__": 71
     },
     "_enabled": true,
     "__prefab": null,
@@ -2211,7 +2085,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 77
+      "__id__": 71
     },
     "_enabled": true,
     "__prefab": null,
@@ -2263,7 +2137,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 77
+      "__id__": 71
     },
     "_enabled": true,
     "__prefab": null,
@@ -2302,7 +2176,7 @@
     "_name": "KeypadUpSprite",
     "_objFlags": 0,
     "node": {
-      "__id__": 77
+      "__id__": 71
     },
     "_enabled": true,
     "__prefab": null,
@@ -2313,22 +2187,22 @@
     "_name": "KeypadLeft",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 76
+      "__id__": 70
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 83
+        "__id__": 77
       },
       {
-        "__id__": 84
+        "__id__": 78
       },
       {
-        "__id__": 85
+        "__id__": 79
       },
       {
-        "__id__": 86
+        "__id__": 80
       }
     ],
     "_prefab": null,
@@ -2365,7 +2239,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 82
+      "__id__": 76
     },
     "_enabled": true,
     "__prefab": null,
@@ -2386,7 +2260,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 82
+      "__id__": 76
     },
     "_enabled": true,
     "__prefab": null,
@@ -2438,7 +2312,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 82
+      "__id__": 76
     },
     "_enabled": true,
     "__prefab": null,
@@ -2477,7 +2351,7 @@
     "_name": "KeypadLeftSprite",
     "_objFlags": 0,
     "node": {
-      "__id__": 82
+      "__id__": 76
     },
     "_enabled": true,
     "__prefab": null,
@@ -2488,22 +2362,22 @@
     "_name": "KeypadDown",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 76
+      "__id__": 70
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 88
+        "__id__": 82
       },
       {
-        "__id__": 89
+        "__id__": 83
       },
       {
-        "__id__": 90
+        "__id__": 84
       },
       {
-        "__id__": 91
+        "__id__": 85
       }
     ],
     "_prefab": null,
@@ -2540,7 +2414,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 87
+      "__id__": 81
     },
     "_enabled": true,
     "__prefab": null,
@@ -2561,7 +2435,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 87
+      "__id__": 81
     },
     "_enabled": true,
     "__prefab": null,
@@ -2613,7 +2487,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 87
+      "__id__": 81
     },
     "_enabled": true,
     "__prefab": null,
@@ -2652,7 +2526,7 @@
     "_name": "KeypadDownSprite",
     "_objFlags": 0,
     "node": {
-      "__id__": 87
+      "__id__": 81
     },
     "_enabled": true,
     "__prefab": null,
@@ -2663,22 +2537,22 @@
     "_name": "KeypadRight",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 76
+      "__id__": 70
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 93
+        "__id__": 87
       },
       {
-        "__id__": 94
+        "__id__": 88
       },
       {
-        "__id__": 95
+        "__id__": 89
       },
       {
-        "__id__": 96
+        "__id__": 90
       }
     ],
     "_prefab": null,
@@ -2715,7 +2589,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 92
+      "__id__": 86
     },
     "_enabled": true,
     "__prefab": null,
@@ -2736,7 +2610,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 92
+      "__id__": 86
     },
     "_enabled": true,
     "__prefab": null,
@@ -2788,7 +2662,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 92
+      "__id__": 86
     },
     "_enabled": true,
     "__prefab": null,
@@ -2827,7 +2701,7 @@
     "_name": "KeypadRightSprite",
     "_objFlags": 0,
     "node": {
-      "__id__": 92
+      "__id__": 86
     },
     "_enabled": true,
     "__prefab": null,
@@ -2838,7 +2712,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 76
+      "__id__": 70
     },
     "_enabled": true,
     "__prefab": null,
@@ -2855,27 +2729,156 @@
     "_id": "343h6hrShPxoxO+vRWMxrz"
   },
   {
-    "__type__": "7bb4ajAUTdPE4wQIXq8TCnT",
+    "__type__": "cc.Node",
+    "_name": "Sound Toggle",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 2
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 93
+      },
+      {
+        "__id__": 95
+      },
+      {
+        "__id__": 97
+      },
+      {
+        "__id__": 98
+      }
+    ],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 160,
+      "y": 274,
+      "z": 0
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_layer": 33554432,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": "dcyoKjY7ZOa7YSKTPrWXG9"
+  },
+  {
+    "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 76
+      "__id__": 92
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 94
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 24,
+      "height": 24
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_id": "62XXTS/8NKYYT0iKvNw0lT"
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "f7NISe7HdAD68SLfhnddy8"
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 92
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 96
+    },
+    "_visFlags": 0,
+    "_customMaterial": null,
+    "_srcBlendFactor": 2,
+    "_dstBlendFactor": 4,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_spriteFrame": {
+      "__uuid__": "57520716-48c8-4a19-8acf-41c9f8777fb0@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "_type": 1,
+    "_fillType": 0,
+    "_sizeMode": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_useGrayscale": false,
+    "_atlas": null,
+    "_id": "e73bBpohtLZoousOs7Ujqk"
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "e71ctEmpxFC4KlSYRZNz/a"
+  },
+  {
+    "__type__": "f1759/SK05PQb+/sOD8JT6L",
+    "_name": "SoundLogoOn",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 92
     },
     "_enabled": true,
     "__prefab": null,
-    "keypadDown": {
-      "__id__": 91
+    "globalData": {
+      "__id__": 48
     },
-    "keypadLeft": {
-      "__id__": 86
+    "soundToggleControl": {
+      "__id__": 98
     },
-    "keypadRight": {
-      "__id__": 96
+    "_id": "9dVIZEwdlN86Gx0PfaZuI3"
+  },
+  {
+    "__type__": "e919aa41u9Js4WVEvxOLr0G",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 92
     },
-    "keypadUp": {
-      "__id__": 81
-    },
-    "_id": "04Jj7DjQJJ77qXOUTGUg8F"
+    "_enabled": true,
+    "__prefab": null,
+    "_id": "0448obi0lNEpNgXxamXyjO"
   },
   {
     "__type__": "cc.UITransform",

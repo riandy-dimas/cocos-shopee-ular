@@ -39,17 +39,6 @@ export class KeypadControl extends Component {
             this.node.emit(KEYPAD_EVENT.PRESS_LEFT)
         })
     }
-
-    onDestroy () {
-        this.unregisterTouchEvent()
-    }
-
-    private unregisterTouchEvent () {
-        this.keypadDown?.node.off(Node.EventType.TOUCH_START)
-        this.keypadUp?.node.off(Node.EventType.TOUCH_START)
-        this.keypadRight?.node.off(Node.EventType.TOUCH_START)
-        this.keypadLeft?.node.off(Node.EventType.TOUCH_START)
-    }
 }
 
 /**
