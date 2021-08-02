@@ -5,6 +5,11 @@ import { TSnakeConfig, TSnakePart } from '../../interface/snake';
 import { SnakeSprite } from '../../sprite/SnakeSprite';
 const { ccclass, property } = _decorator;
 
+type TDirection = {
+    directionX: number
+    directionY: number
+}
+
 @ccclass('Snake')
 export class Snake extends Component {
     @property(SnakeSprite)
@@ -13,8 +18,8 @@ export class Snake extends Component {
     private parts: TSnakePart[] = [];
     
     private swallowingParts: TSnakePart[] = [];
-
-    private updateInterval = 0.3;
+    
+    private updateInterval = 0.25;
     
     private movementDirection = v2(0, 0);
     
@@ -51,7 +56,7 @@ export class Snake extends Component {
     
     public adjustPartTexture(previousPart: TSnakePart | null, part: TSnakePart) {
         const { sprite } = part;
-
+        
         if (previousPart) {
             const { x, y } = this.getDirectionBetweenParts(part, previousPart);
             
@@ -119,9 +124,7 @@ export class Snake extends Component {
         }
         
         part.rotation?.set(x, y, z);
-        tween(this.node).to(
-            this.updateInterval,
-            {},
+        tween(this.node).to(this.updateInterval, {},
             {
                 onUpdate(_, ratio) {
                     if (ratio === undefined) return;
@@ -131,52 +134,95 @@ export class Snake extends Component {
                     sprite.node.setRotationFromEuler(x, y, z);
                 }
             }
-            ).start();
-        }
+        ).start();
+    }
         
         
-        /////
-        public addPart(x: number, y: number, posX: number, posY: number) {
-            const { snakeSprite } = this;
-            
-            if (!snakeSprite) return undefined;
-            
-            const sprite = instantiate(snakeSprite.node);
-            sprite.setParent(this.node);
-            sprite.setPosition(posX, posY);
-            sprite.active = true;
-            
-            const part: TSnakePart = {
-                sprite: sprite.getComponent(SnakeSprite) as SnakeSprite,
-                index: v2(x, y),
-                position: v3(posX, posY, 0),
-                rotation: v3(0, 0, 0),
-            };
-            
-            this.parts.push(part);
-            return part;
-        }
-
-        private getPartRotationByDirection(directionX: number, directionY: number) {
-            if (directionY === -1) {
-                return v3(0, 0, 0);
-            } else if (directionX === 1) {
-                return v3(0, 0, -90);
-            } else if (directionY === 1) {
-                return v3(0, 0, -180);
-            } else if (directionX === -1) {
-                return v3(0, 0, -270);
-            }
-        }
+    /////
+    public addPart(x: number, y: number, posX: number, posY: number) {
+        const { snakeSprite } = this;
+        
+        if (!snakeSprite) return undefined;
+        
+        const sprite = instantiate(snakeSprite.node);
+        sprite.setParent(this.node);
+        sprite.setPosition(posX, posY);
+        sprite.active = true;
+        
+        const part: TSnakePart = {
+            sprite: sprite.getComponent(SnakeSprite) as SnakeSprite,
+            index: v2(x, y),
+            position: v3(posX, posY, 0),
+            rotation: v3(0, 0, 0),
+        };
+        
+        this.parts.push(part);
+        return part;
+    }
     
-        
-        private getDirectionBetweenParts(partA: TSnakePart, partB: TSnakePart) {
-            return v2(
-                partB.index.x - partA.index.x,
-                partB.index.y - partA.index.y,
-                );
-            }
+    private getPartRotationByDirection(directionX: number, directionY: number) {
+        if (directionY === -1) {
+            return v3(0, 0, 0);
+        } else if (directionX === 1) {
+            return v3(0, 0, -90);
+        } else if (directionY === 1) {
+            return v3(0, 0, -180);
+        } else if (directionX === -1) {
+            return v3(0, 0, -270);
         }
+    }
+    
+    
+    private getDirectionBetweenParts(partA: TSnakePart, partB: TSnakePart) {
+        return v2(
+            partB.index.x - partA.index.x,
+            partB.index.y - partA.index.y,
+        );
+    }
+
+    // Move the snake
+    private isNextDirectionPossible (targetDirection: TDirection) {
+        /**
+         * Check whether the target direction (user input) is perpendicular
+         * or parallel with the current snake direction
+         * + the head is not facing the neck.
+         */
+
+        const { index: { x: headX, y: headY } } = this.getHead()
+        const { index: { x: neckX, y: neckY } } = this.getNeck()
+        const { directionX, directionY } = targetDirection
+
+        /**
+         * Check whether the head direction will face the neck by
+         * summing up current head position with the target direction,
+         * if the sum position is the same as the neck position, return false
+         */
+        const isHeadDirectionPossible = !(
+            headX + directionX === neckX &&
+            headY + directionY === neckY
+        )
+
+        /**
+         * Check whether the direction is perpendicular,
+         * return true
+         */
+        const isDirectionPerpendicular = !(
+            directionX === this.movementDirection.x &&
+            directionY === this.movementDirection.y
+        )
+
+        return isHeadDirectionPossible && isDirectionPerpendicular
+    }
+
+    public changeMovingDirection (targetDirection: TDirection) {
+        if (this.isNextDirectionPossible(targetDirection)) {
+            const { directionX, directionY } = targetDirection;
+            this.movementDirection.set(directionX, directionY)
+            return true
+        }
+        return false
+    }
+}
         
         /**
         * [1] Class member could be defined like this.

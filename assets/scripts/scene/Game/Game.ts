@@ -89,11 +89,17 @@ export class Game extends Component {
     keypad.node.on(KEYPAD_EVENT.PRESS_LEFT, () => {
       this.handleSnakeDirection(-1, 0);
     });
-    
+
   }
   
   private handleSnakeDirection (x: number, y: number) {
-    console.log('___HANDLE_SNAKE_DIRECTION', { x, y })
+    if (!this.snake) return
+    const isDirectionChanged = this.snake.changeMovingDirection({ directionX: x, directionY: y })
+
+    if (isDirectionChanged) {
+      this.snake.adjustTextures()
+    }
+    console.log('___HANDLE_SNAKE_DIRECTION', { isDirectionChanged })
   }
   
 }
