@@ -1,0 +1,69 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "tapAnimation",
+  "_objFlags": 0,
+  "_native": "",
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "events": [
+    {
+      "frame": 0,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.06666666666666667,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.2,
+      "func": "",
+      "params": []
+    }
+  ],
+  "enableTrsBlending": false,
+  "_duration": 0.2,
+  "_keys": [
+    [
+      0,
+      0.06666666666666667,
+      0.2
+    ]
+  ],
+  "_stepness": 0,
+  "_curves": [
+    {
+      "modifiers": [
+        "scale"
+      ],
+      "data": {
+        "keys": 0,
+        "values": [
+          {
+            "__type__": "cc.Vec3",
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          {
+            "__type__": "cc.Vec3",
+            "x": 0.9,
+            "y": 0.9,
+            "z": 1
+          },
+          {
+            "__type__": "cc.Vec3",
+            "x": 1,
+            "y": 1,
+            "z": 1
+          }
+        ],
+        "easingMethods": {}
+      }
+    }
+  ],
+  "_commonTargets": [],
+  "_hash": 686788275
+}

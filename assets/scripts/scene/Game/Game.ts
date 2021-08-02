@@ -49,8 +49,6 @@ export class Game extends Component {
     this.gameBoard?.generateBoard()
     this.generateSnakeOnBoard(this.dummySnake)
     this.setupKeypad()
-    // For PC
-    this.setupKeyboard()
   }
   
   redirectToMainMenu () {
@@ -92,44 +90,6 @@ export class Game extends Component {
       this.handleSnakeDirection(-1, 0);
     });
     
-  }
-  
-  private setupKeyboard () {
-    this.node.once(Node.EventType.NODE_DESTROYED, () => {
-      systemEvent.off(SystemEvent.EventType.KEY_DOWN);
-    });
-    
-    systemEvent.on(SystemEvent.EventType.KEY_DOWN, (event) => {
-      switch(event.keyCode) {
-        case 37: {
-          //left
-          this.handleSnakeDirection(-1, 0);
-          break;
-        }
-        
-        case 38: {
-          //up
-          this.handleSnakeDirection(0, -1);
-          break;
-        }
-        
-        case 39: {
-          //right
-          this.handleSnakeDirection(1, 0);
-          break;
-        }
-        
-        case 40: {
-          //down
-          this.handleSnakeDirection(0, 1);
-          break;
-        }
-        
-        default: {
-          break;
-        }
-      }
-    });
   }
   
   private handleSnakeDirection (x: number, y: number) {
