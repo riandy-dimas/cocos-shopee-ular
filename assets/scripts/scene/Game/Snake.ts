@@ -14,7 +14,7 @@ export class Snake extends Component {
     
     private swallowingParts: TSnakePart[] = [];
 
-    private updateInterval = 1;
+    private updateInterval = 0.3;
     
     private movementDirection = v2(0, 0);
     
