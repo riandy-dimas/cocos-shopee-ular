@@ -139,6 +139,11 @@ export class Snake extends Component {
         
         
     /////
+
+    public getParts() {
+        return this.parts;
+    }
+
     public addPart(x: number, y: number, posX: number, posY: number) {
         const { snakeSprite } = this;
         
@@ -297,6 +302,11 @@ export class Snake extends Component {
 
     public doDie () {
         this.unschedule(this.moving)
+    }
+
+    public isTouchSelf () {
+        const head = this.getHead()
+        return this.parts.some((part) => part !== head && head.index.x === part.index.x && head.index.y === part.index.y)
     }
 }
         

@@ -42,6 +42,8 @@ export class Game extends Component {
       { x: 2, y: 1 },
       { x: 3, y: 1 },
       { x: 4, y: 1 },
+      { x: 5, y: 1 },
+      { x: 6, y: 1 },
     ],
     velocity: {
       initial: 0.3,
@@ -60,14 +62,14 @@ export class Game extends Component {
     this.generateSnakeOnBoard(this.dummySnake)
     this.setupKeypad()
     this.setupSnakeMovementListener()
+
+    if (this.snake) {
+      this.gameBoard?.spawnRandomFood(this.snake)
+    }
   }
   
   redirectToMainMenu () {
     director.loadScene(SCENE_KEY.MAIN_MENU)
-  }
-
-  private startGame () {
-
   }
   
   private generateSnakeOnBoard (config: TSnakeConfig) {
@@ -139,7 +141,7 @@ export class Game extends Component {
 
     if (!snake || !gameBoard) return;
 
-    const { x: headPositionX, y: headPositionY } =  snake.getHead().index
+    const { x: headPositionX, y: headPositionY } = snake.getHead().index
     const nextHeadPosition: Vec2 = v2(
       headPositionX + targetDirectionX,
       headPositionY + targetDirectionY
@@ -147,8 +149,12 @@ export class Game extends Component {
     const nextTile = gameBoard.getTileNode(nextHeadPosition)
 
     if (nextTile && nextTile.node) {
-      snake.doMoveTo(nextTile.index, nextTile.node?.position)
+      snake.doMoveTo(nextTile.index, nextTile.node.position)
     } else {
+      this.handleGameOver()
+    }
+
+    if (snake.isTouchSelf()) {
       this.handleGameOver()
     }
   }

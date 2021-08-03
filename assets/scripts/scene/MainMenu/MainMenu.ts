@@ -86,9 +86,9 @@ export class MainMenu extends Component {
 
     const bgMusicNode = node.getComponent(BackgroundMusic)
     bgMusicNode?.play();
-    director.on(Director.EVENT_AFTER_SCENE_LAUNCH, () => {
-      node.getComponent(BackgroundMusic)?.play();
-    });
+    // director.on(Director.EVENT_AFTER_SCENE_LAUNCH, () => {
+    //   node.getComponent(BackgroundMusic)?.play();
+    // });
     game.addPersistRootNode(node);
     
   }
