@@ -279,7 +279,7 @@ export class Snake extends Component {
         part.index.set(x, y);
         /** Update snake part location on the board (relative to board size) */
         part.position.set(position);
-        /** Move snake part using tween animation to the respection location */
+        /** Move snake sprite using tween animation to the designated location */
         tween(part.sprite.node).to(
             this.updateInterval,
             {

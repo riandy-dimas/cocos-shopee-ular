@@ -9,6 +9,12 @@ import { WallSprite } from '../../sprite/WallSprite';
 import { Snake } from './Snake';
 const { ccclass, property } = _decorator;
 
+type TFood = {
+    index: string
+    node: Node
+    type: 'APPLE'
+}
+
 @ccclass('GameBoard')
 export class GameBoard extends Component {
     private dummyBoard: TBoard['tiles'] = [
@@ -28,6 +34,8 @@ export class GameBoard extends Component {
     ]
 
     private board: TTile[][] = []
+
+    private food: TFood[] = []
 
     @property(TileSprite)
     public readonly tileSprite?: TileSprite
@@ -128,6 +136,7 @@ export class GameBoard extends Component {
         return this.board.reduce((passableTiles, row, rowIndex) => {
             const passableTile = row.filter((tile, colIndex) => (tile.value !== TILE_NODE_TYPE.WALL)
                 && snakeTileIndexes.every((position) => position !== `${colIndex}-${rowIndex}`))
+
             return [
                 ...passableTiles,
                 ...passableTile
@@ -142,7 +151,7 @@ export class GameBoard extends Component {
         this.spawnFoodAt(randomTile.index.x, randomTile.index.y)
     }
 
-    public spawnFoodAt(colIndex: number, rowIndex: number) {
+    public spawnFoodAt(colIndex: number, rowIndex: number, foodType: TFood['type'] = 'APPLE') {
         const { appleSprite, tileNode } = this
 
         if (!appleSprite || !tileNode) return;
@@ -155,6 +164,12 @@ export class GameBoard extends Component {
         node.setParent(tileNode || this.node)
         node.setPosition(v3(selectedTile.node.position.x, selectedTile.node.position.y))
         node.active = true
+
+        this.food.push({
+            index: `${colIndex}-${rowIndex}`,
+            node,
+            type: foodType
+        })
     }
 }
 

@@ -1,5 +1,5 @@
 
-import { _decorator, Component, Node } from 'cc';
+import { _decorator, Component, Node, Animation } from 'cc';
 import { MAIN_MENU_CONTROL_EVENT } from '../enum/mainMenu';
 const { ccclass, property } = _decorator;
 
@@ -7,9 +7,17 @@ const { ccclass, property } = _decorator;
 export class SoundToggleControl extends Component {
   public registerTouchEvent() {
     this.node.on(Node.EventType.TOUCH_END, () => {
+      this.playAnimation();
       this.node.emit(MAIN_MENU_CONTROL_EVENT.TOUCH_END);
     })
   }
+
+  private playAnimation () {
+    const animation = this.node.getComponent(Animation)
+    if (animation) {
+      animation: animation.play();
+    }
+}
 }
 
 /**
