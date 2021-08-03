@@ -12,12 +12,21 @@ import { GlobalData } from '../../globalData';
 import { TSnakeConfig } from '../../interface/snake';
 import { GameBoard } from './GameBoard';
 import { Snake } from './Snake';
+import { getData, storeData } from '../../util/localStorage';
+import { LOCAL_STORAGE_KEY } from '../../enum/localStorage';
+import { ScoreText } from '../../text/ScoreText';
+import { HighscoreText } from '../../text/HighscoreText';
+import { TLevelConfig } from '../../interface/level';
+import { getLevelConfig } from '../../config/level';
+import { EatSfx } from '../../audio/EatSfx';
 const { ccclass, property } = _decorator;
 
 @ccclass('Game')
 export class Game extends Component {
-  private bgMusic?: BackgroundMusic | null
+  private currentScore: number = 0;
   
+  private levelConfig?: TLevelConfig
+
   @property(GlobalData)
   public readonly globalData?: GlobalData;
   
@@ -35,33 +44,26 @@ export class Game extends Component {
 
   @property(CrashSfx)
   public readonly crashSfx?: CrashSfx;
-  
-  private dummySnake: TSnakeConfig = {
-    parts: [
-      { x: 1, y: 1 },
-      { x: 2, y: 1 },
-      { x: 3, y: 1 },
-      { x: 4, y: 1 },
-      { x: 5, y: 1 },
-      { x: 6, y: 1 },
-    ],
-    velocity: {
-      initial: 0.3,
-      accelerateMultiplier: 0.9,
-      accelerateEvery: 2,
-      minimum: 0.12,
-    }
-  }
-  
+
+  @property(EatSfx)
+  public readonly eatSfx?: EatSfx;
+
+  @property(ScoreText)
+  public readonly scoreText?: ScoreText;
+
+  @property(HighscoreText)
+  public readonly highscoreText?: HighscoreText;
+
   onLoad () {
-    this.bgMusic = this.node.scene?.getComponentInChildren(BackgroundMusic);
+    this.levelConfig = getLevelConfig(0)
   }
   
   start () {
-    this.gameBoard?.generateBoard()
-    this.generateSnakeOnBoard(this.dummySnake)
+    this.gameBoard?.generateBoard(this.levelConfig!.maze)
+    this.generateSnakeOnBoard(this.levelConfig!.snake)
     this.setupKeypad()
     this.setupSnakeMovementListener()
+    this.setupHighscore();
 
     if (this.snake) {
       this.gameBoard?.spawnRandomFood(this.snake)
@@ -148,6 +150,8 @@ export class Game extends Component {
     )
     const nextTile = gameBoard.getTileNode(nextHeadPosition)
 
+    const isAnyFootEaten = gameBoard.eatFoodByIndex(nextHeadPosition.x, nextHeadPosition.y)
+
     if (nextTile && nextTile.node) {
       snake.doMoveTo(nextTile.index, nextTile.node.position)
     } else {
@@ -156,6 +160,39 @@ export class Game extends Component {
 
     if (snake.isTouchSelf()) {
       this.handleGameOver()
+    }
+
+    if (isAnyFootEaten) {
+      this.handleFoodEaten(gameBoard, snake)
+    }
+
+  }
+
+  private handleFoodEaten (gameBoard: GameBoard, snake: Snake) {
+    this.eatSfx?.play()
+    this.handleUpdateScore(1)
+    gameBoard.spawnRandomFood(snake)
+  }
+
+  private setupHighscore () {
+    const currentHighscore = getData(LOCAL_STORAGE_KEY.HIGHSCORE) as number || 0
+    this.highscoreText?.updateScore(currentHighscore)
+  }
+
+  private handleUpdateScore (point: number = 0) {
+    const { currentScore, highscoreText, scoreText } = this
+
+    if (!highscoreText || !scoreText) return
+
+    const currentHighscore = getData(LOCAL_STORAGE_KEY.HIGHSCORE) || 0
+    let score = currentScore + point;
+
+    this.currentScore = score;
+    scoreText.updateScore(score)
+
+    if (score > currentHighscore) {
+      highscoreText.updateScore(score)
+      storeData({ key: LOCAL_STORAGE_KEY.HIGHSCORE, data: score})
     }
   }
 

@@ -17,22 +17,6 @@ type TFood = {
 
 @ccclass('GameBoard')
 export class GameBoard extends Component {
-    private dummyBoard: TBoard['tiles'] = [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-        [0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ]
-
     private board: TTile[][] = []
 
     private food: TFood[] = []
@@ -53,7 +37,7 @@ export class GameBoard extends Component {
         super('GameBoard')
     }
 
-    public generateBoard (config: TBoard['tiles'] = this.dummyBoard) {
+    public generateBoard (config: TBoard['tiles']) {
         this.board = this.generateBoardFromConfig(config);
         this.generateBoardSprite();
     }
@@ -129,6 +113,19 @@ export class GameBoard extends Component {
         if (!targetTile || isWallTileNode) return undefined
 
         return targetTile
+    }
+
+    public eatFoodByIndex (colIndex: number, rowIndex: number): boolean {
+        const targetIndex = this.food.findIndex(({ index }) => index === `${colIndex}-${rowIndex}`)
+        const food: TFood | undefined = this.food[targetIndex];
+
+        if (food) {
+            food.node.destroy()
+            this.food.splice(targetIndex, 1)
+            return true
+        }
+
+        return false
     }
 
     public getPassableTile (snake: Snake) {

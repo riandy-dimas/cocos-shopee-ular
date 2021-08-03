@@ -29,7 +29,7 @@
     "_prefab": null,
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 126
+      "__id__": 129
     },
     "_id": "73d8a445-c805-4ad7-8f31-57dc005bccb7"
   },
@@ -60,28 +60,28 @@
         "__id__": 39
       },
       {
-        "__id__": 112
+        "__id__": 115
       },
       {
-        "__id__": 63
+        "__id__": 66
       },
       {
-        "__id__": 79
+        "__id__": 82
       },
       {
-        "__id__": 86
+        "__id__": 89
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 120
+        "__id__": 123
       },
       {
-        "__id__": 122
+        "__id__": 125
       },
       {
-        "__id__": 124
+        "__id__": 127
       }
     ],
     "_prefab": null,
@@ -1416,12 +1416,15 @@
       },
       {
         "__id__": 58
+      },
+      {
+        "__id__": 61
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 61
+        "__id__": 64
       }
     ],
     "_prefab": null,
@@ -1658,6 +1661,81 @@
     "_id": "77U4IVGIRDTr3N0hK2EEBo"
   },
   {
+    "__type__": "cc.Node",
+    "_name": "Eat SFX",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 52
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 62
+      },
+      {
+        "__id__": 63
+      }
+    ],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_layer": 1073741824,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": "d0lmCEAgtKTaM6GELr/TY8"
+  },
+  {
+    "__type__": "cc.AudioSource",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 61
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_clip": null,
+    "_loop": false,
+    "_playOnAwake": true,
+    "_volume": 1,
+    "_id": "2cKUSnaPJAVYomqI8iF+no"
+  },
+  {
+    "__type__": "94153SWDg5PPqowcPx/hLy/",
+    "_name": "ButtonSfx",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 61
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "globalData": {
+      "__id__": 55
+    },
+    "_id": "9cxGM0k31Hspa6XDhD6RfB"
+  },
+  {
     "__type__": "7b84aHDS2pOtZDgCI/7cTy3",
     "_name": "",
     "_objFlags": 0,
@@ -1670,19 +1748,28 @@
       "__id__": 55
     },
     "gameBoard": {
-      "__id__": 62
+      "__id__": 65
     },
     "snake": {
-      "__id__": 78
+      "__id__": 81
     },
     "keypadControl": {
-      "__id__": 85
+      "__id__": 88
     },
     "turnSfx": {
       "__id__": 54
     },
     "crashSfx": {
       "__id__": 59
+    },
+    "eatSfx": {
+      "__id__": 63
+    },
+    "scoreText": {
+      "__id__": 25
+    },
+    "highscoreText": {
+      "__id__": 35
     },
     "_id": "31uhvoOdpLuZJonDR8Yz0d"
   },
@@ -1691,21 +1778,21 @@
     "_name": "GameBoard",
     "_objFlags": 0,
     "node": {
-      "__id__": 63
+      "__id__": 66
     },
     "_enabled": true,
     "__prefab": null,
     "tileSprite": {
-      "__id__": 68
+      "__id__": 71
     },
     "wallSprite": {
-      "__id__": 72
+      "__id__": 75
     },
     "appleSprite": {
-      "__id__": 77
+      "__id__": 80
     },
     "tileNode": {
-      "__id__": 64
+      "__id__": 67
     },
     "_id": "87AM7L29FD/43xZJGisbju"
   },
@@ -1718,22 +1805,22 @@
     },
     "_children": [
       {
-        "__id__": 64
+        "__id__": 67
       },
       {
-        "__id__": 66
+        "__id__": 69
       },
       {
-        "__id__": 70
+        "__id__": 73
       },
       {
-        "__id__": 74
+        "__id__": 77
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 62
+        "__id__": 65
       }
     ],
     "_prefab": null,
@@ -1770,13 +1857,13 @@
     "_name": "Tile Node",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 63
+      "__id__": 66
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 65
+        "__id__": 68
       }
     ],
     "_prefab": null,
@@ -1813,7 +1900,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 64
+      "__id__": 67
     },
     "_enabled": true,
     "__prefab": null,
@@ -1834,19 +1921,19 @@
     "_name": "Tile Sprite",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 63
+      "__id__": 66
     },
     "_children": [],
     "_active": false,
     "_components": [
       {
-        "__id__": 67
+        "__id__": 70
       },
       {
-        "__id__": 68
+        "__id__": 71
       },
       {
-        "__id__": 69
+        "__id__": 72
       }
     ],
     "_prefab": null,
@@ -1883,7 +1970,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 66
+      "__id__": 69
     },
     "_enabled": true,
     "__prefab": null,
@@ -1904,7 +1991,7 @@
     "_name": "TileSprite",
     "_objFlags": 0,
     "node": {
-      "__id__": 66
+      "__id__": 69
     },
     "_enabled": true,
     "__prefab": null,
@@ -1915,7 +2002,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 66
+      "__id__": 69
     },
     "_enabled": true,
     "__prefab": null,
@@ -1951,19 +2038,19 @@
     "_name": "Wall Sprite",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 63
+      "__id__": 66
     },
     "_children": [],
     "_active": false,
     "_components": [
       {
-        "__id__": 71
+        "__id__": 74
       },
       {
-        "__id__": 72
+        "__id__": 75
       },
       {
-        "__id__": 73
+        "__id__": 76
       }
     ],
     "_prefab": null,
@@ -2000,7 +2087,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 70
+      "__id__": 73
     },
     "_enabled": true,
     "__prefab": null,
@@ -2021,7 +2108,7 @@
     "_name": "WallSprite",
     "_objFlags": 0,
     "node": {
-      "__id__": 70
+      "__id__": 73
     },
     "_enabled": true,
     "__prefab": null,
@@ -2032,7 +2119,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 70
+      "__id__": 73
     },
     "_enabled": true,
     "__prefab": null,
@@ -2068,19 +2155,19 @@
     "_name": "Apple Sprite",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 63
+      "__id__": 66
     },
     "_children": [],
     "_active": false,
     "_components": [
       {
-        "__id__": 75
+        "__id__": 78
       },
       {
-        "__id__": 76
+        "__id__": 79
       },
       {
-        "__id__": 77
+        "__id__": 80
       }
     ],
     "_prefab": null,
@@ -2117,7 +2204,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 74
+      "__id__": 77
     },
     "_enabled": true,
     "__prefab": null,
@@ -2138,7 +2225,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 74
+      "__id__": 77
     },
     "_enabled": true,
     "__prefab": null,
@@ -2174,7 +2261,7 @@
     "_name": "AppleSprite",
     "_objFlags": 0,
     "node": {
-      "__id__": 74
+      "__id__": 77
     },
     "_enabled": true,
     "__prefab": null,
@@ -2185,12 +2272,12 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 79
+      "__id__": 82
     },
     "_enabled": true,
     "__prefab": null,
     "snakeSprite": {
-      "__id__": 82
+      "__id__": 85
     },
     "_id": "b0EJ9LKS9ATK44fnDuIldD"
   },
@@ -2203,16 +2290,16 @@
     },
     "_children": [
       {
-        "__id__": 80
+        "__id__": 83
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 84
+        "__id__": 87
       },
       {
-        "__id__": 78
+        "__id__": 81
       }
     ],
     "_prefab": null,
@@ -2249,19 +2336,19 @@
     "_name": "Snake Sprite",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 79
+      "__id__": 82
     },
     "_children": [],
     "_active": false,
     "_components": [
       {
-        "__id__": 81
+        "__id__": 84
       },
       {
-        "__id__": 82
+        "__id__": 85
       },
       {
-        "__id__": 83
+        "__id__": 86
       }
     ],
     "_prefab": null,
@@ -2298,7 +2385,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 80
+      "__id__": 83
     },
     "_enabled": true,
     "__prefab": null,
@@ -2319,7 +2406,7 @@
     "_name": "SnakeSprite",
     "_objFlags": 0,
     "node": {
-      "__id__": 80
+      "__id__": 83
     },
     "_enabled": true,
     "__prefab": null,
@@ -2330,7 +2417,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 80
+      "__id__": 83
     },
     "_enabled": true,
     "__prefab": null,
@@ -2366,7 +2453,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 79
+      "__id__": 82
     },
     "_enabled": true,
     "__prefab": null,
@@ -2387,21 +2474,21 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 86
+      "__id__": 89
     },
     "_enabled": true,
     "__prefab": null,
     "keypadDown": {
-      "__id__": 103
+      "__id__": 106
     },
     "keypadLeft": {
-      "__id__": 97
+      "__id__": 100
     },
     "keypadRight": {
-      "__id__": 109
+      "__id__": 112
     },
     "keypadUp": {
-      "__id__": 91
+      "__id__": 94
     },
     "_id": "04Jj7DjQJJ77qXOUTGUg8F"
   },
@@ -2414,25 +2501,25 @@
     },
     "_children": [
       {
-        "__id__": 87
+        "__id__": 90
       },
       {
-        "__id__": 93
+        "__id__": 96
       },
       {
-        "__id__": 99
+        "__id__": 102
       },
       {
-        "__id__": 105
+        "__id__": 108
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 111
+        "__id__": 114
       },
       {
-        "__id__": 85
+        "__id__": 88
       }
     ],
     "_prefab": null,
@@ -2469,25 +2556,25 @@
     "_name": "KeypadUp",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 86
+      "__id__": 89
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 88
-      },
-      {
-        "__id__": 89
-      },
-      {
-        "__id__": 90
-      },
-      {
         "__id__": 91
       },
       {
         "__id__": 92
+      },
+      {
+        "__id__": 93
+      },
+      {
+        "__id__": 94
+      },
+      {
+        "__id__": 95
       }
     ],
     "_prefab": null,
@@ -2524,7 +2611,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 87
+      "__id__": 90
     },
     "_enabled": true,
     "__prefab": null,
@@ -2545,7 +2632,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 87
+      "__id__": 90
     },
     "_enabled": true,
     "__prefab": null,
@@ -2597,7 +2684,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 87
+      "__id__": 90
     },
     "_enabled": true,
     "__prefab": null,
@@ -2636,7 +2723,7 @@
     "_name": "KeypadUpSprite",
     "_objFlags": 0,
     "node": {
-      "__id__": 87
+      "__id__": 90
     },
     "_enabled": true,
     "__prefab": null,
@@ -2647,7 +2734,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 87
+      "__id__": 90
     },
     "_enabled": true,
     "__prefab": null,
@@ -2669,25 +2756,25 @@
     "_name": "KeypadLeft",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 86
+      "__id__": 89
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 94
-      },
-      {
-        "__id__": 95
-      },
-      {
-        "__id__": 96
-      },
-      {
         "__id__": 97
       },
       {
         "__id__": 98
+      },
+      {
+        "__id__": 99
+      },
+      {
+        "__id__": 100
+      },
+      {
+        "__id__": 101
       }
     ],
     "_prefab": null,
@@ -2724,7 +2811,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 93
+      "__id__": 96
     },
     "_enabled": true,
     "__prefab": null,
@@ -2745,7 +2832,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 93
+      "__id__": 96
     },
     "_enabled": true,
     "__prefab": null,
@@ -2797,7 +2884,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 93
+      "__id__": 96
     },
     "_enabled": true,
     "__prefab": null,
@@ -2836,7 +2923,7 @@
     "_name": "KeypadLeftSprite",
     "_objFlags": 0,
     "node": {
-      "__id__": 93
+      "__id__": 96
     },
     "_enabled": true,
     "__prefab": null,
@@ -2847,7 +2934,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 93
+      "__id__": 96
     },
     "_enabled": true,
     "__prefab": null,
@@ -2869,25 +2956,25 @@
     "_name": "KeypadDown",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 86
+      "__id__": 89
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 100
-      },
-      {
-        "__id__": 101
-      },
-      {
-        "__id__": 102
-      },
-      {
         "__id__": 103
       },
       {
         "__id__": 104
+      },
+      {
+        "__id__": 105
+      },
+      {
+        "__id__": 106
+      },
+      {
+        "__id__": 107
       }
     ],
     "_prefab": null,
@@ -2924,7 +3011,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 99
+      "__id__": 102
     },
     "_enabled": true,
     "__prefab": null,
@@ -2945,7 +3032,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 99
+      "__id__": 102
     },
     "_enabled": true,
     "__prefab": null,
@@ -2997,7 +3084,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 99
+      "__id__": 102
     },
     "_enabled": true,
     "__prefab": null,
@@ -3036,7 +3123,7 @@
     "_name": "KeypadDownSprite",
     "_objFlags": 0,
     "node": {
-      "__id__": 99
+      "__id__": 102
     },
     "_enabled": true,
     "__prefab": null,
@@ -3047,7 +3134,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 99
+      "__id__": 102
     },
     "_enabled": true,
     "__prefab": null,
@@ -3069,25 +3156,25 @@
     "_name": "KeypadRight",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 86
+      "__id__": 89
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 106
-      },
-      {
-        "__id__": 107
-      },
-      {
-        "__id__": 108
-      },
-      {
         "__id__": 109
       },
       {
         "__id__": 110
+      },
+      {
+        "__id__": 111
+      },
+      {
+        "__id__": 112
+      },
+      {
+        "__id__": 113
       }
     ],
     "_prefab": null,
@@ -3124,7 +3211,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 105
+      "__id__": 108
     },
     "_enabled": true,
     "__prefab": null,
@@ -3145,7 +3232,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 105
+      "__id__": 108
     },
     "_enabled": true,
     "__prefab": null,
@@ -3197,7 +3284,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 105
+      "__id__": 108
     },
     "_enabled": true,
     "__prefab": null,
@@ -3236,7 +3323,7 @@
     "_name": "KeypadRightSprite",
     "_objFlags": 0,
     "node": {
-      "__id__": 105
+      "__id__": 108
     },
     "_enabled": true,
     "__prefab": null,
@@ -3247,7 +3334,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 105
+      "__id__": 108
     },
     "_enabled": true,
     "__prefab": null,
@@ -3269,7 +3356,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 86
+      "__id__": 89
     },
     "_enabled": true,
     "__prefab": null,
@@ -3296,19 +3383,19 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 113
-      },
-      {
-        "__id__": 115
-      },
-      {
-        "__id__": 117
+        "__id__": 116
       },
       {
         "__id__": 118
       },
       {
-        "__id__": 119
+        "__id__": 120
+      },
+      {
+        "__id__": 121
+      },
+      {
+        "__id__": 122
       }
     ],
     "_prefab": null,
@@ -3345,11 +3432,11 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 112
+      "__id__": 115
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 114
+      "__id__": 117
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -3372,11 +3459,11 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 112
+      "__id__": 115
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 116
+      "__id__": 119
     },
     "_visFlags": 0,
     "_customMaterial": null,
@@ -3417,7 +3504,7 @@
     "_name": "SoundLogoOn",
     "_objFlags": 0,
     "node": {
-      "__id__": 112
+      "__id__": 115
     },
     "_enabled": true,
     "__prefab": null,
@@ -3425,7 +3512,7 @@
       "__id__": 55
     },
     "soundToggleControl": {
-      "__id__": 118
+      "__id__": 121
     },
     "_id": "9dVIZEwdlN86Gx0PfaZuI3"
   },
@@ -3434,7 +3521,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 112
+      "__id__": 115
     },
     "_enabled": true,
     "__prefab": null,
@@ -3445,7 +3532,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 112
+      "__id__": 115
     },
     "_enabled": true,
     "__prefab": null,
@@ -3471,7 +3558,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 121
+      "__id__": 124
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -3498,7 +3585,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 123
+      "__id__": 126
     },
     "_cameraComponent": {
       "__id__": 4
@@ -3519,7 +3606,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 125
+      "__id__": 128
     },
     "_alignFlags": 45,
     "_target": null,
@@ -3548,16 +3635,16 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 127
+      "__id__": 130
     },
     "shadows": {
-      "__id__": 128
+      "__id__": 131
     },
     "_skybox": {
-      "__id__": 129
+      "__id__": 132
     },
     "fog": {
-      "__id__": 130
+      "__id__": 133
     }
   },
   {

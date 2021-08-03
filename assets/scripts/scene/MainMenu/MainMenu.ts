@@ -17,9 +17,11 @@ import { BackgroundMusic } from '../../audio/BackgroundMusic';
 import { ButtonSfx } from '../../audio/ButtonSfx';
 import { PlayButtonControl } from '../../control/PlayButtonControl';
 import { ASSET_KEY } from '../../enum/asset';
+import { LOCAL_STORAGE_KEY } from '../../enum/localStorage';
 import { PERSIST_NODE_NAME } from '../../enum/persistNode';
 import { SCENE_KEY } from '../../enum/scene';
 import { MainMenuLogo } from '../../sprite/MainMenuLogo';
+import { getData } from '../../util/localStorage';
 import { PlayButton } from './PlayButton';
 const { ccclass, property } = _decorator;
 
@@ -58,6 +60,12 @@ export class MainMenu extends Component {
   start () {
     this.setupBgMusic();
     this.setupPlayButton();
+    this.setupHighscore();
+  }
+
+  private setupHighscore () {
+    const currentHighscore = getData(LOCAL_STORAGE_KEY.HIGHSCORE) as number || 0
+    this.setHighscoreValue(currentHighscore)
   }
   
   private setupText () {
