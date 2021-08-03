@@ -1,9 +1,13 @@
 
-import { _decorator, Component, Node, director, systemEvent, SystemEvent } from 'cc';
+import { _decorator, Component, Node, director, Vec2, v2 } from 'cc';
 import { BackgroundMusic } from '../../audio/BackgroundMusic';
+import { CrashSfx } from '../../audio/CrashSfx';
+import { TurnSfx } from '../../audio/TurnSfx';
 import { KeypadControl } from '../../control/KeypadControl';
+import { GAME_EVENT } from '../../enum/game';
 import { KEYPAD_EVENT } from '../../enum/keypad';
 import { SCENE_KEY } from '../../enum/scene';
+import { SNAKE_EVENT } from '../../enum/snake';
 import { GlobalData } from '../../globalData';
 import { TSnakeConfig } from '../../interface/snake';
 import { GameBoard } from './GameBoard';
@@ -25,6 +29,12 @@ export class Game extends Component {
   
   @property(KeypadControl)
   public readonly keypadControl?: KeypadControl;
+
+  @property(TurnSfx)
+  public readonly turnSfx?: TurnSfx;
+
+  @property(CrashSfx)
+  public readonly crashSfx?: CrashSfx;
   
   private dummySnake: TSnakeConfig = {
     parts: [
@@ -49,10 +59,15 @@ export class Game extends Component {
     this.gameBoard?.generateBoard()
     this.generateSnakeOnBoard(this.dummySnake)
     this.setupKeypad()
+    this.setupSnakeMovementListener()
   }
   
   redirectToMainMenu () {
     director.loadScene(SCENE_KEY.MAIN_MENU)
+  }
+
+  private startGame () {
+
   }
   
   private generateSnakeOnBoard (config: TSnakeConfig) {
@@ -97,9 +112,51 @@ export class Game extends Component {
     const isDirectionChanged = this.snake.changeMovingDirection({ directionX: x, directionY: y })
 
     if (isDirectionChanged) {
-      this.snake.adjustTextures()
+      this.snake.node.once(SNAKE_EVENT.MOVE, () => {
+        this.turnSfx?.play()
+      })
     }
-    console.log('___HANDLE_SNAKE_DIRECTION', { isDirectionChanged })
+
+    this.node.emit(GAME_EVENT.GAME_SNAKE_DIRECTION_CHANGE, { x, y })
+  }
+
+  private setupSnakeMovementListener() {
+    const { snake, gameBoard } = this;
+
+    if (!snake || !gameBoard) return;
+
+    this.node.once(GAME_EVENT.GAME_SNAKE_DIRECTION_CHANGE, () => {
+      snake.startMove()
+      snake.moving()
+    })
+
+    snake.node.on(SNAKE_EVENT.MOVE, this.handleSnakeMovement, this);
+  }
+
+
+  private handleSnakeMovement ({ x: targetDirectionX, y: targetDirectionY }: Vec2) {
+    const { snake, gameBoard } = this;
+
+    if (!snake || !gameBoard) return;
+
+    const { x: headPositionX, y: headPositionY } =  snake.getHead().index
+    const nextHeadPosition: Vec2 = v2(
+      headPositionX + targetDirectionX,
+      headPositionY + targetDirectionY
+    )
+    const nextTile = gameBoard.getTileNode(nextHeadPosition)
+
+    if (nextTile && nextTile.node) {
+      snake.doMoveTo(nextTile.index, nextTile.node?.position)
+    } else {
+      this.handleGameOver()
+    }
+  }
+
+  private handleGameOver () {
+    console.log('___GAME_OVER___')
+    this.crashSfx?.play()
+    this.snake?.doDie()
   }
   
 }

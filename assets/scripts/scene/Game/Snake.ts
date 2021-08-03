@@ -1,6 +1,6 @@
 
-import { _decorator, Component, Node, v2, instantiate, v3, tween } from 'cc';
-import { SNAKE_BODY_PART } from '../../enum/snake';
+import { _decorator, Component, Node, v2, instantiate, v3, tween, Vec2, Vec3, macro, math } from 'cc';
+import { SNAKE_BODY_PART, SNAKE_EVENT } from '../../enum/snake';
 import { TSnakeConfig, TSnakePart } from '../../interface/snake';
 import { SnakeSprite } from '../../sprite/SnakeSprite';
 const { ccclass, property } = _decorator;
@@ -35,15 +35,15 @@ export class Snake extends Component {
         this.adjustTextures();
     }
     
-    private getHead () {
+    public getHead () {
         return this.parts[0];
     }
     
-    private getNeck () {
+    public getNeck () {
         return this.parts[1];
     }
     
-    private getTail () {
+    public getTail () {
         return this.parts[this.parts.length - 1];
     }
     
@@ -221,6 +221,82 @@ export class Snake extends Component {
             return true
         }
         return false
+    }
+
+    public startMove () {
+        this.refreshMovementScheduler()
+    }
+
+    private moveHeadTo (index: Vec2, position: Vec3) {
+        this.refreshPartPosition(this.getHead(), index, position);
+    }
+
+    private movePartAfterHead () {
+        this.parts.reduce<{ index: math.Vec2, position: math.Vec3 } | undefined>((previousPart, part) => {
+            const { x, y } = part.index;
+            const { x: posX, y: posY } = part.position;
+
+            if (previousPart) {
+                // Update non-head position
+                this.refreshPartPosition(part, previousPart.index, previousPart.position);
+            }
+            return {
+                index: v2(x, y),
+                position: v3(posX, posY)
+            }
+        }, undefined)
+    }
+
+    public doMoveTo (index: Vec2, position: Vec3) {
+
+        /**
+         * The part after head position will be refreshed
+         * on the next scheduler, each part will adjust its
+         * position by following the previous part
+         */
+        this.movePartAfterHead()
+
+        /**
+         * Move the head, and the other part will follows
+         * in the next update schedule
+         */
+        this.moveHeadTo(index, position)
+
+        /** Adjust the snake textures after changing the position */
+        this.adjustTextures()
+    }
+
+    private refreshPartPosition(part: TSnakePart, index: Vec2, position: Vec3) {
+        const { x, y } = index;
+        const { x: posX, y: posY } = position;
+        
+        /** Update snake part index position on board */
+        part.index.set(x, y);
+        /** Update snake part location on the board (relative to board size) */
+        part.position.set(position);
+        /** Move snake part using tween animation to the respection location */
+        tween(part.sprite.node).to(
+            this.updateInterval,
+            {
+                position: v3(posX, posY)
+            },
+            {
+                easing: 'fade'
+            }
+        ).start();
+    }
+
+    private refreshMovementScheduler () {
+        this.unschedule(this.moving)
+        this.schedule(this.moving, this.updateInterval, macro.REPEAT_FOREVER)
+    }
+
+    public moving () {
+        this.node.emit(SNAKE_EVENT.MOVE, this.movementDirection)
+    }
+
+    public doDie () {
+        this.unschedule(this.moving)
     }
 }
         

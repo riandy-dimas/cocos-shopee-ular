@@ -1,5 +1,5 @@
 
-import { _decorator, Component, Node, v2, instantiate } from 'cc';
+import { _decorator, Component, Node, v2, instantiate, Vec2 } from 'cc';
 import { TILE_NODE_PROPS, TILE_NODE_TYPE } from '../../enum/tileNode';
 import { TBoard } from '../../interface/board';
 import { TTile } from '../../interface/tile';
@@ -107,6 +107,15 @@ export class GameBoard extends Component {
             x: colIndex * TILE_NODE_PROPS.SIZE,
             y: -rowIndex * TILE_NODE_PROPS.SIZE
         };
+    }
+
+    public getTileNode ({ x, y }: Vec2) {
+        const targetTile = this.getTile(x, y)
+        const isWallTileNode = targetTile?.value === TILE_NODE_TYPE.WALL
+        
+        if (!targetTile || isWallTileNode) return undefined
+
+        return targetTile
     }
 }
 
