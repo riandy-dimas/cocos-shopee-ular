@@ -619,8 +619,8 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.5,
+      "y": 0.5,
       "z": 1
     },
     "_layer": 33554432,
@@ -645,8 +645,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 122.71,
-      "height": 40.32
+      "width": 245.41,
+      "height": 80.64
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -670,10 +670,10 @@
     "__prefab": {
       "__id__": 23
     },
-    "_lineHeight": 32,
+    "_lineHeight": 64,
     "_string": "<color=#00ff00>Rich</color><color=#0fffff>Text</color>",
     "_horizontalAlign": 0,
-    "_fontSize": 32,
+    "_fontSize": 64,
     "_maxWidth": 0,
     "_fontFamily": "Arial",
     "_font": null,

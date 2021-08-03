@@ -1,5 +1,5 @@
 
-import { _decorator, Button, Node, Color, Label, Sprite, assetManager, TTFFont } from 'cc';
+import { _decorator, Button, Node, Color, Label, Sprite, assetManager, TTFFont, v3 } from 'cc';
 import { ASSET_KEY } from '../../enum/asset';
 const { ccclass, property } = _decorator;
 
@@ -20,9 +20,10 @@ export class PlayButton extends Button {
     
     if (buttonLabel) {
       buttonLabel.font = this.getFont();
-      buttonLabel.fontSize = 36;
+      buttonLabel.fontSize = 72;
       buttonLabel.string = 'Play';
       buttonLabel.color = new Color().fromHEX('#FFFFFF');
+      buttonLabel.node.setScale(v3(0.5, 0.5, 1))
     }
   }
 

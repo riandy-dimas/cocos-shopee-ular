@@ -11,6 +11,7 @@ import {
   instantiate,
   Director,
   game,
+  v3,
 } from 'cc';
 import { BackgroundMusic } from '../../audio/BackgroundMusic';
 import { ButtonSfx } from '../../audio/ButtonSfx';
@@ -63,11 +64,13 @@ export class MainMenu extends Component {
     const { highscoreValue, highscoreTitle, fontTtf } = this;
     if (highscoreTitle) {
       highscoreTitle.font = fontTtf;
-      highscoreTitle.fontSize = 36;
+      highscoreTitle.fontSize = 72;
+      highscoreTitle.node.setScale(v3(0.5, 0.5, 1))
     }
     if (highscoreValue) {
       highscoreValue.font = fontTtf;
-      highscoreValue.fontSize = 48;
+      highscoreValue.fontSize = 96;
+      highscoreValue.node.setScale(v3(0.5, 0.5, 1))
     }
   }
   

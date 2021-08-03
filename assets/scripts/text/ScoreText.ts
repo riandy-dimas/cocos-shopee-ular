@@ -1,5 +1,5 @@
 
-import { _decorator, Component, RichText, assetManager, TTFFont } from 'cc';
+import { _decorator, Component, RichText, assetManager, TTFFont, v3 } from 'cc';
 import { ASSET_KEY } from '../enum/asset';
 const { ccclass, property } = _decorator;
 
@@ -15,6 +15,9 @@ export class ScoreText extends Component {
 
         if (this.scoreText) {
             this.scoreText.font = this.getFont();
+            this.scoreText.fontSize = 48
+            this.scoreText.lineHeight = 48
+            this.node.setScale(v3(0.5, 0.5, 1))
         }        
     }
 
