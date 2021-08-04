@@ -1,5 +1,5 @@
 
-import { _decorator, Component, Node, director, Vec2, v2 } from 'cc';
+import { _decorator, Component, Node, director, Vec2, v2, Color } from 'cc';
 import { BackgroundMusic } from '../../audio/BackgroundMusic';
 import { CrashSfx } from '../../audio/CrashSfx';
 import { TurnSfx } from '../../audio/TurnSfx';
@@ -19,6 +19,8 @@ import { HighscoreText } from '../../text/HighscoreText';
 import { TLevelConfig } from '../../interface/level';
 import { getLevelConfig } from '../../config/level';
 import { EatSfx } from '../../audio/EatSfx';
+import { Dialogue } from './Dialogue';
+import { FadeableSprite } from '../../sprite/FadeableSprite';
 const { ccclass, property } = _decorator;
 
 @ccclass('Game')
@@ -53,6 +55,12 @@ export class Game extends Component {
 
   @property(HighscoreText)
   public readonly highscoreText?: HighscoreText;
+
+  @property(Dialogue)
+  public readonly gameOverDialogue?: Dialogue;
+
+  @property(FadeableSprite)
+  public readonly backdrop?: FadeableSprite;
 
   onLoad () {
     this.levelConfig = getLevelConfig(0)
@@ -204,6 +212,8 @@ export class Game extends Component {
     console.log('___GAME_OVER___')
     this.crashSfx?.play()
     this.snake?.doDie()
+    this.backdrop?.fadeIn(0.3, Color.BLACK, 125)
+    this.gameOverDialogue?.show()
   }
   
 }

@@ -46,6 +46,12 @@ export function getAssets() {
     url: '',
     localUrl: 'image/general/sprite_sound_on'
   })
+  assets.push({
+    key: ASSET_KEY.WHITE_PANEL,
+    type: ASSET_TYPE.IMAGE,
+    url: '',
+    localUrl: 'image/general/white_sprite',
+  })
   
   // Game UI
   assets.push({
