@@ -22,7 +22,7 @@ export class Dialogue extends Component {
 
     protected readonly popOutAnimationDuration = 0.3;
 
-    start () {
+    onLoad () {
         this.uiTransform = this.getComponent(UITransform)
 
         this.renderBorder()

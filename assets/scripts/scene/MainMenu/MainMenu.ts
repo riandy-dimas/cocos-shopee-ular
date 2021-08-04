@@ -24,7 +24,7 @@ import { TRANSITION_EVENT, TRANSITION_VALUE } from '../../enum/transition';
 import { FadeableSprite } from '../../sprite/FadeableSprite';
 import { MainMenuLogo } from '../../sprite/MainMenuLogo';
 import { getData } from '../../util/localStorage';
-import { PlayButton } from './PlayButton';
+import { BaseButton } from '../BaseButton';
 const { ccclass, property } = _decorator;
 
 @ccclass('MainMenu')
@@ -43,8 +43,8 @@ export class MainMenu extends Component {
   @property(MainMenuLogo)
   public readonly gameLogo?: MainMenuLogo;
   
-  @property(PlayButton)
-  public readonly playButton?: PlayButton;
+  @property(BaseButton)
+  public readonly playButton?: BaseButton;
   
   @property(PlayButtonControl)
   public readonly playButtonControl?: PlayButtonControl;

@@ -107,7 +107,7 @@
       "__id__": 48
     },
     "playButtonControl": {
-      "__id__": 51
+      "__id__": 50
     },
     "bgMusic": {
       "__id__": 66
@@ -1321,7 +1321,18 @@
     "fileId": "2fOwBXUwBNvaJ4NyyrOq4C"
   },
   {
-    "__type__": "b52f7NnZNJA5Y+3eskmSBWL",
+    "__type__": "41641REBs5NPKHYX40XeSme",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 38
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_id": "43Xz642cBEPazpmnKTjYVE"
+  },
+  {
+    "__type__": "890cdTOB89N6pCczbwmwqyZ",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1369,19 +1380,10 @@
     "_disabledSprite": null,
     "_duration": 0.1,
     "_zoomScale": 1.2,
-    "_target": null,
-    "_id": "0anZ548yBGB6dhcpQD6OTZ"
-  },
-  {
-    "__type__": "41641REBs5NPKHYX40XeSme",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
+    "_target": {
       "__id__": 38
     },
-    "_enabled": true,
-    "__prefab": null,
-    "_id": "43Xz642cBEPazpmnKTjYVE"
+    "_id": "c8Aa7u9nRG+Y1sTqVBgraK"
   },
   {
     "__type__": "cc.Node",

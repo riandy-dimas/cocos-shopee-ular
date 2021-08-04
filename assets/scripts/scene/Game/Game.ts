@@ -21,7 +21,10 @@ import { getLevelConfig } from '../../config/level';
 import { EatSfx } from '../../audio/EatSfx';
 import { Dialogue } from './Dialogue';
 import { FadeableSprite } from '../../sprite/FadeableSprite';
-import { TRANSITION_VALUE } from '../../enum/transition';
+import { TRANSITION_EVENT, TRANSITION_VALUE } from '../../enum/transition';
+import { GameoverText } from './GameoverText';
+import { BaseButton } from '../BaseButton';
+import { ButtonSfx } from '../../audio/ButtonSfx';
 const { ccclass, property } = _decorator;
 
 @ccclass('Game')
@@ -51,6 +54,9 @@ export class Game extends Component {
   @property(EatSfx)
   public readonly eatSfx?: EatSfx;
 
+  @property(ButtonSfx)
+  public readonly buttonSfx?: ButtonSfx;
+
   @property(ScoreText)
   public readonly scoreText?: ScoreText;
 
@@ -65,6 +71,15 @@ export class Game extends Component {
 
   @property(FadeableSprite)
   public readonly transitionScreen?: FadeableSprite;
+
+  @property(GameoverText)
+  public readonly gameoverText?: GameoverText;
+
+  @property(BaseButton)
+  public readonly playAgainButton?: BaseButton
+
+  @property(BaseButton)
+  public readonly cancelButton?: BaseButton
 
   onLoad () {
     this.levelConfig = getLevelConfig(0)
@@ -85,7 +100,28 @@ export class Game extends Component {
   }
   
   redirectToMainMenu () {
-    director.loadScene(SCENE_KEY.MAIN_MENU)
+    this.transitionScreen?.fadeIn(1, undefined, undefined, () => {
+      director.loadScene(SCENE_KEY.MAIN_MENU)
+    }, () => {
+      this.buttonSfx?.play()
+    })
+  }
+  
+  redirectToGame () {
+    this.transitionScreen?.fadeIn(1, undefined, undefined, () => {
+      director.loadScene(SCENE_KEY.GAME)
+    }, () => {
+      this.buttonSfx?.play()
+    })
+  }
+
+  private setupDialogueButton () {
+    const { cancelButton, playAgainButton } = this
+
+    if (!cancelButton || !playAgainButton) return
+
+    cancelButton.configureButton('#E5E5E5', 'Cancel', '#535753', 36)
+    playAgainButton.configureButton('#DF5838', 'Play Again', '#FFFFFF', 36)
   }
   
   private generateSnakeOnBoard (config: TSnakeConfig) {
@@ -215,11 +251,12 @@ export class Game extends Component {
   }
 
   private handleGameOver () {
-    console.log('___GAME_OVER___')
+    this.gameoverText?.updateScore(this.currentScore)
     this.crashSfx?.play()
     this.snake?.doDie()
     this.backdrop?.fadeIn(0.3, Color.BLACK, 125)
     this.gameOverDialogue?.show()
+    this.setupDialogueButton();
   }
   
 }

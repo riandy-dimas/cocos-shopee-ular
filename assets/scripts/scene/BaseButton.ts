@@ -1,18 +1,36 @@
 
 import { _decorator, Button, Node, Color, Label, Sprite, assetManager, TTFFont, v3 } from 'cc';
-import { ASSET_KEY } from '../../enum/asset';
+import { ASSET_KEY } from '../enum/asset';
 const { ccclass, property } = _decorator;
 
-@ccclass('PlayButton')
-export class PlayButton extends Button {
+@ccclass('BaseButton')
+export class BaseButton extends Button {
+  private buttonLabel?: Label | null
+  private buttonSprite?: Sprite | null
+
   onLoad () {
+    this.buttonLabel = this.getComponentInChildren(Label);
+    this.buttonSprite = this.getComponent(Sprite);
+
     this.setupButton()
+  }
+
+  public configureButton (buttonHexColor: string, text: string, buttonTextHexColor: string, size: number) {
+    const { buttonLabel, buttonSprite } = this
+    
+    if (buttonSprite) {
+      buttonSprite.color = new Color().fromHEX(buttonHexColor)
+    }
+    
+    if (buttonLabel) {
+      buttonLabel.string = text;
+      buttonLabel.fontSize = size;
+      buttonLabel.color = new Color().fromHEX(buttonTextHexColor);
+    }
   }
   
   private setupButton () {
-    
-    const buttonLabel = this.getComponentInChildren(Label);
-    const buttonSprite = this.getComponent(Sprite);
+    const { buttonLabel, buttonSprite } = this
     
     if (buttonSprite) {
       buttonSprite.color = new Color().fromHEX('#DF5838')
