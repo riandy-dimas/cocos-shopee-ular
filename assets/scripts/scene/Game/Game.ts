@@ -25,6 +25,8 @@ import { TRANSITION_EVENT, TRANSITION_VALUE } from '../../enum/transition';
 import { GameoverText } from './GameoverText';
 import { BaseButton } from '../BaseButton';
 import { ButtonSfx } from '../../audio/ButtonSfx';
+import { GameHeader } from './GameHeader';
+import { GameGuideText } from '../../text/GameGuideText';
 const { ccclass, property } = _decorator;
 
 @ccclass('Game')
@@ -80,6 +82,12 @@ export class Game extends Component {
 
   @property(BaseButton)
   public readonly cancelButton?: BaseButton
+
+  @property(GameHeader)
+  public readonly gameHeader?: GameHeader
+
+  @property(GameGuideText)
+  public readonly gameGuideText?: GameGuideText
 
   onLoad () {
     this.levelConfig = getLevelConfig(0)
@@ -180,6 +188,8 @@ export class Game extends Component {
     if (!snake || !gameBoard) return;
 
     this.node.once(GAME_EVENT.GAME_SNAKE_DIRECTION_CHANGE, () => {
+      this.gameGuideText?.showNode(false)
+      this.gameHeader?.showNode(true)
       snake.startMove()
       snake.moving()
     })
