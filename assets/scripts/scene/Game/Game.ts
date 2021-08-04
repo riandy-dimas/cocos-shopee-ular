@@ -21,6 +21,7 @@ import { getLevelConfig } from '../../config/level';
 import { EatSfx } from '../../audio/EatSfx';
 import { Dialogue } from './Dialogue';
 import { FadeableSprite } from '../../sprite/FadeableSprite';
+import { TRANSITION_VALUE } from '../../enum/transition';
 const { ccclass, property } = _decorator;
 
 @ccclass('Game')
@@ -62,11 +63,16 @@ export class Game extends Component {
   @property(FadeableSprite)
   public readonly backdrop?: FadeableSprite;
 
+  @property(FadeableSprite)
+  public readonly transitionScreen?: FadeableSprite;
+
   onLoad () {
     this.levelConfig = getLevelConfig(0)
   }
   
   start () {
+    this.transitionScreen?.fadeOut(TRANSITION_VALUE.DURATION)
+
     this.gameBoard?.generateBoard(this.levelConfig!.maze)
     this.generateSnakeOnBoard(this.levelConfig!.snake)
     this.setupKeypad()

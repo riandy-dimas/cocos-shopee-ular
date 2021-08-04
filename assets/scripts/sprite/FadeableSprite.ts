@@ -11,7 +11,7 @@ export class FadeableSprite extends SpriteManager {
         super('FadeableSprite', ASSET_KEY.WHITE_PANEL);
     }
 
-    fadeIn(duration = 1, color: Color = Color.BLACK, targetOpacity = 255) {
+    fadeIn(duration = 1, color: Color = Color.BLACK, targetOpacity = 255, onComplete?: () => void, onStart?: () => void) {
         this.reload();
         this.setColor(color);
         this.setOpacity(0);
@@ -20,16 +20,16 @@ export class FadeableSprite extends SpriteManager {
             { opacity: targetOpacity },
             {
                 onStart: () => {
-                    this.node.emit(TRANSITION_EVENT.FADE_IN_START);
+                    onStart?.()
                 },
                 onComplete: () => {
-                    this.node.emit(TRANSITION_EVENT.FADE_IN_END);
+                    onComplete?.()
                 }
             }
         ).start();
     }
 
-    fadeOut(duration = 1, color: Color = Color.BLACK, targetOpacity = 0) {
+    fadeOut(duration = 1, color: Color = Color.BLACK, targetOpacity = 0, onComplete?: () => void, onStart?: () => void) {
         this.reload();
         this.setColor(color);
         this.setOpacity(255);
@@ -38,10 +38,10 @@ export class FadeableSprite extends SpriteManager {
             { opacity: targetOpacity },
             {
                 onStart: () => {
-                    this.node.emit(TRANSITION_EVENT.FADE_OUT_START);
+                    onStart?.()
                 },
                 onComplete: () => {
-                    this.node.emit(TRANSITION_EVENT.FADE_IN_END);
+                    onComplete?.()
                 }
             }
         ).start();

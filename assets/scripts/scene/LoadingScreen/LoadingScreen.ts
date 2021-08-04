@@ -1,5 +1,5 @@
 
-import { _decorator, Component, Node, director, assetManager } from 'cc';
+import { _decorator, Component, Node, director, assetManager, Color } from 'cc';
 import { ASSET_LOADER_EVENT } from '../../enum/assetLoader';
 import { SCENE_KEY } from '../../enum/scene';
 import { AssetLoader } from '../../assetLoader';
@@ -8,7 +8,9 @@ import { LoadingScreenControl } from '../../control/LoadingScreenControl';
 import { LOADING_SCREEN_CONTROL_EVENT } from '../../enum/loadingScreenControl';
 import { GlobalData } from '../../globalData';
 import { BackgroundMusic } from '../../audio/BackgroundMusic';
-import { ASSET_KEY } from '../../enum/asset';
+import { FadeableSprite } from '../../sprite/FadeableSprite';
+import { TRANSITION_VALUE } from '../../enum/transition';
+
 const { ccclass, property } = _decorator;
 
 @ccclass('LoadingScreen')
@@ -27,6 +29,9 @@ export class LoadingScreen extends Component {
 
   @property(BackgroundMusic)
   public readonly bgMusic?: BackgroundMusic;
+
+  @property(FadeableSprite)
+  public readonly transitionScreen?: FadeableSprite;
 
   onLoad () {
     this.globalData?.saveData({
@@ -72,7 +77,14 @@ export class LoadingScreen extends Component {
   }
   
   private redirectToMainMenuScene () {
-    director.loadScene(SCENE_KEY.MAIN_MENU);
+    this.transitionScreen?.fadeIn(
+      TRANSITION_VALUE.DURATION,
+      undefined,
+      undefined,
+      () => {
+        director.loadScene(SCENE_KEY.MAIN_MENU);
+      }
+    )
   }
 
   onDestroy () {

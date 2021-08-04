@@ -20,6 +20,8 @@ import { ASSET_KEY } from '../../enum/asset';
 import { LOCAL_STORAGE_KEY } from '../../enum/localStorage';
 import { PERSIST_NODE_NAME } from '../../enum/persistNode';
 import { SCENE_KEY } from '../../enum/scene';
+import { TRANSITION_EVENT, TRANSITION_VALUE } from '../../enum/transition';
+import { FadeableSprite } from '../../sprite/FadeableSprite';
 import { MainMenuLogo } from '../../sprite/MainMenuLogo';
 import { getData } from '../../util/localStorage';
 import { PlayButton } from './PlayButton';
@@ -49,6 +51,9 @@ export class MainMenu extends Component {
   
   @property(BackgroundMusic)
   public readonly bgMusic?: BackgroundMusic;
+
+  @property(FadeableSprite)
+  public readonly transitionScreen?: FadeableSprite;
   
   onLoad () {
     this.fontTtf = this.getFont();
@@ -58,6 +63,10 @@ export class MainMenu extends Component {
   }
   
   start () {
+    this.transitionScreen?.fadeOut(
+      TRANSITION_VALUE.DURATION
+    )
+
     this.setupBgMusic();
     this.setupPlayButton();
     this.setupHighscore();
@@ -134,7 +143,14 @@ export class MainMenu extends Component {
   
   
   private redirectToGameScene () {
-    director.loadScene(SCENE_KEY.GAME);
+    this.transitionScreen?.fadeIn(
+      1,
+      undefined,
+      undefined,
+      () => {
+        director.loadScene(SCENE_KEY.GAME);
+      }
+    )
   }
   
 }
