@@ -152,6 +152,8 @@ export class Game extends Component {
 
     const isAnyFootEaten = gameBoard.eatFoodByIndex(nextHeadPosition.x, nextHeadPosition.y)
 
+    snake.handleSwallowingFood()
+
     if (nextTile && nextTile.node) {
       snake.doMoveTo(nextTile.index, nextTile.node.position)
     } else {
@@ -169,6 +171,8 @@ export class Game extends Component {
   }
 
   private handleFoodEaten (gameBoard: GameBoard, snake: Snake) {
+    snake.eatFood()
+
     this.eatSfx?.play()
     this.handleUpdateScore(1)
     gameBoard.spawnRandomFood(snake)

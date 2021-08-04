@@ -17,23 +17,43 @@ export class Snake extends Component {
     
     private parts: TSnakePart[] = [];
     
-    private swallowingParts: TSnakePart[] = [];
-    
-    private updateInterval = 0.25;
+    private swallowingPartsQueue: TSnakePart[] = [];
+
+    private updateInterval = 1.0;
+
+    private accelerateMultiplier = 1.0;
+
+    private accelerateEvery = 1;
+
+    private minimumInterval = 1.0;
     
     private movementDirection = v2(0, 0);
+
+    private foodEaten = 0;
     
     public createSnake (config: TSnakeConfig) {
         const head = this.getHead();
         const neck = this.getNeck();
         
         if (!head || !neck) return;
+
+        this.setupSnakeVelocity(config.velocity)
         
         const { x, y } = this.getDirectionBetweenParts(neck, head);
         // Set snake direction by checking head and neck position
         this.movementDirection.set(x, y);
         this.adjustTextures();
     }
+
+    private setupSnakeVelocity (config: TSnakeConfig['velocity']) {
+        const { initial, accelerateMultiplier, accelerateEvery, minimum } = config;
+
+        this.updateInterval = initial;
+        this.accelerateMultiplier = accelerateMultiplier;
+        this.accelerateEvery = accelerateEvery;
+        this.minimumInterval = minimum;
+    }
+
     
     public getHead () {
         return this.parts[0];
@@ -307,6 +327,101 @@ export class Snake extends Component {
     public isTouchSelf () {
         const head = this.getHead()
         return this.parts.some((part) => part !== head && head.index.x === part.index.x && head.index.y === part.index.y)
+    }
+
+    public eatFood () {
+        this.swallowFood(this.getNeck())
+    }
+
+    private swallowFood (part: TSnakePart) {
+        tween(part.sprite.node).to(
+            this.updateInterval * 0.5,
+            {
+                scale: v3(2, 1, 1)
+            }
+        ).to(
+            this.updateInterval * 0.5,
+            {
+                scale: v3(1, 1, 1)
+            }
+        ).start();
+
+        /**
+         * Push current part to mark it that the next animation will
+         * happened in the part after this one
+         * */
+        this.swallowingPartsQueue.push(part);
+    }
+
+    public handleSwallowingFood () {
+
+        const nextSwallowingParts = this.swallowingPartsQueue.reduce((result, currentSwallowingPart) => {
+            const { parts } = this
+            /** Get the next swallowing part in the real snake part */
+            const nextSwallowingPart = parts[parts.indexOf(currentSwallowingPart) + 1]
+
+            /** Push the next part to the result */
+            if (nextSwallowingPart) result.push(nextSwallowingPart)
+
+            return result
+        }, [] as TSnakePart[])
+
+        /** Clear the swallowing parts queue before we will push the next part */
+        this.swallowingPartsQueue = []
+
+        const tailPart = this.getTail()
+        nextSwallowingParts.forEach((part) => {
+            if (part !== tailPart) {
+                /** Swallow the food in the next part, while also mark the next part */
+                this.swallowFood(part)
+            } else {
+                this.addTail()
+                this.adjustVelocity()
+            }
+        })
+    }
+
+    private addTail () {
+        const tail = this.getTail();
+        const { index, position, rotation } = tail;
+
+        /** Instantiate a new part located in the tail */
+        const part = this.addPart(
+            index.x,
+            index.y,
+            position.x,
+            position.y,
+        );
+
+        /** Set the rotation to follow the tail */
+        part?.rotation.set(rotation);
+
+        /** This is for spawning animation */
+        part?.sprite.node.setScale(0, 0, 1);
+        tween(part?.sprite.node).to(
+            this.updateInterval * 0.7,
+            {
+                scale: v3(1.25, 1, 1)
+            }
+        ).to(
+            this.updateInterval * 0.3,
+            {
+                scale: v3(1, 1, 1)
+            }
+        ).start();
+    }
+
+    private adjustVelocity () {
+        this.foodEaten += 1;
+
+        /** Adjust snake velocity if it has eat food multiply of `accelerateEvery` */
+        if (this.foodEaten % this.accelerateEvery === 0) {
+            this.updateInterval = Math.max(
+                this.updateInterval * this.accelerateMultiplier,
+                this.minimumInterval
+            );
+            this.refreshMovementScheduler();
+        }
     }
 }
         
