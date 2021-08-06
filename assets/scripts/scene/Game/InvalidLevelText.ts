@@ -3,44 +3,29 @@ import { _decorator, Component, Node, RichText, assetManager, TTFFont, v3 } from
 import { ASSET_KEY } from '../../enum/asset';
 const { ccclass, property } = _decorator;
 
-@ccclass('GameoverText')
-export class GameoverText extends Component {
+@ccclass('InvalidLevelText')
+export class InvalidLevelText extends Component {
     @property(RichText)
-    public readonly scoreLabel?: RichText;
-
-    @property(RichText)
-    public readonly scoreValue?: RichText;
+    public readonly labelText?: RichText;
 
     onLoad () {
-        if (this.scoreLabel) {
-            this.scoreLabel.font = this.getFont();
-            this.scoreLabel.fontSize = 40
-            this.scoreLabel.lineHeight = 40
-            this.scoreLabel.string = '<color=#000000>Your Score</color>'
+        if (this.labelText) {
+            this.labelText.font = this.getFont();
+            this.labelText.fontSize = 64
+            this.labelText.lineHeight = 64
+            this.labelText.string = '<color=#000000>Invalid Level<br/>Configuration</color>'
             this.node.setScale(v3(0.5, 0.5, 1))
         }
 
-        if (this.scoreValue) {
-            this.scoreValue.font = this.getFont();
-            this.scoreValue.fontSize = 96
-            this.scoreValue.lineHeight = 96
-            this.node.setScale(v3(0.5, 0.5, 1))
-        }        
-    }
-
-    public show (val: boolean = true) {
-        this.node.active = val
-    }
-
-    public updateScore (score: number) {
-        if (this.scoreValue) {
-            this.scoreValue.string = `<color=#000000>${Math.round(score).toString()}</color>`;
-        }
     }
 
     private getFont() {
         const result = assetManager.assets.get(ASSET_KEY.SHOPEE_FONT);
         return result as TTFFont;
+    }
+
+    public show (val: boolean = true) {
+        this.node.active = val
     }
 }
 

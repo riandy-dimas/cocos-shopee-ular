@@ -1,6 +1,5 @@
 
-import { _decorator, Component, Node, director, Vec2, v2, Color } from 'cc';
-import { BackgroundMusic } from '../../audio/BackgroundMusic';
+import { _decorator, Component, Node, director, Vec2, v2, Color, v3 } from 'cc';
 import { CrashSfx } from '../../audio/CrashSfx';
 import { TurnSfx } from '../../audio/TurnSfx';
 import { KeypadControl } from '../../control/KeypadControl';
@@ -27,6 +26,8 @@ import { BaseButton } from '../BaseButton';
 import { ButtonSfx } from '../../audio/ButtonSfx';
 import { GameHeader } from './GameHeader';
 import { GameGuideText } from '../../text/GameGuideText';
+import { TILE_NODE_TYPE } from '../../enum/tileNode';
+import { InvalidLevelText } from './InvalidLevelText';
 const { ccclass, property } = _decorator;
 
 @ccclass('Game')
@@ -89,14 +90,23 @@ export class Game extends Component {
   @property(GameGuideText)
   public readonly gameGuideText?: GameGuideText
 
+  @property(InvalidLevelText)
+  public readonly invalidLevelText?: InvalidLevelText
+
   onLoad () {
-    this.levelConfig = getLevelConfig(0)
+    this.levelConfig = getLevelConfig(1)
   }
   
   start () {
     this.transitionScreen?.fadeOut(TRANSITION_VALUE.DURATION)
-
     this.gameBoard?.generateBoard(this.levelConfig!.maze)
+
+    if (!this.isSnakeConfigValid(this.levelConfig!.snake)) {
+      console.log('___INVALID_SNAKE_CONFIG___')
+      this.showInvalidLevelDialogue()
+      return
+    }
+
     this.generateSnakeOnBoard(this.levelConfig!.snake)
     this.setupKeypad()
     this.setupSnakeMovementListener()
@@ -105,6 +115,62 @@ export class Game extends Component {
     if (this.snake) {
       this.gameBoard?.spawnRandomFood(this.snake)
     }
+  }
+  
+  private showInvalidLevelDialogue () {
+    const { cancelButton, playAgainButton } = this
+
+    if (!cancelButton || !playAgainButton) return
+
+    cancelButton.configureButton('#E5E5E5', 'Cancel', '#535753', 36)
+    cancelButton.node.setPosition(v3(0, -55, 0))
+    playAgainButton.node.active = false;
+
+    this.gameGuideText?.showNode(false)
+    this.gameoverText?.show(false)
+    this.invalidLevelText?.show(true)
+    this.gameOverDialogue?.show()
+    this.showModal();
+    
+  }
+
+  private isSnakeConfigValid ({ parts }: TLevelConfig['snake']) {
+    /**
+     * Snake length must have length more than 3 part
+     */
+    if (parts.length < 3) {
+      console.log('INVALID_LENGTH')
+      return false
+    }
+
+    /**
+     * Snake position must not in the obstacle tile
+     */
+    const isSnakeOnObstacleTile = parts.some((part) => {
+      const { x, y } = part
+      const snakePartTile = this.gameBoard?.getTileNode(v2(x, y))
+      return (!snakePartTile || snakePartTile.value === TILE_NODE_TYPE.WALL)
+    })
+    if (isSnakeOnObstacleTile) {
+      console.log('INVALID_ON_OBSTACLE')
+      return false
+    }
+
+    /**
+     * Snake part position from each other must not exceed 1-block apart
+     */
+    const isSnakePartDistanceInvalid = parts.some((currentPart, index, allPart) => {
+      const nextPart = allPart[index + 1]
+      if (!nextPart) return false
+      const distance = Math.abs(currentPart.x - nextPart.x) + Math.abs(currentPart.y - nextPart.y)
+      return distance !== 1
+    })
+    if (isSnakePartDistanceInvalid) {
+      console.log('INVALID_PART_DISTANCE')
+      return false
+    }
+
+    return true
   }
   
   redirectToMainMenu () {
@@ -260,13 +326,19 @@ export class Game extends Component {
     }
   }
 
+  private showModal () {
+    this.backdrop?.fadeIn(0.3, Color.BLACK, 125)
+    this.gameOverDialogue?.show()
+  }
+
   private handleGameOver () {
+    this.invalidLevelText?.show(false)
+    this.gameoverText?.show(true)
     this.gameoverText?.updateScore(this.currentScore)
     this.crashSfx?.play()
     this.snake?.doDie()
-    this.backdrop?.fadeIn(0.3, Color.BLACK, 125)
-    this.gameOverDialogue?.show()
     this.setupDialogueButton();
+    this.showModal();
   }
   
 }
