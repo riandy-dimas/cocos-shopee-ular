@@ -147,7 +147,6 @@ const getLevelFromParam = () => {
 }
 
 const getLevelById = (level: number) => {
-  console.log('zzz', level)
   if (level < 0) return level_invalid
   if (level < level_valid.length) return level_valid[level]
   return level_invalid

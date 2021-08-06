@@ -36,6 +36,8 @@ export class Game extends Component {
   
   private levelConfig?: TLevelConfig
 
+  private spawnBonusFoodCallback?: () => void
+
   @property(GlobalData)
   public readonly globalData?: GlobalData;
   
@@ -257,6 +259,11 @@ export class Game extends Component {
       this.gameHeader?.showNode(true)
       snake.startMove()
       snake.moving()
+
+      this.spawnBonusFoodCallback = () => {
+        gameBoard.spawnRandomFood(snake, true)
+      }
+      this.schedule(this.spawnBonusFoodCallback, 10)
     })
 
     snake.node.on(SNAKE_EVENT.MOVE, this.handleSnakeMovement, this);
@@ -275,7 +282,7 @@ export class Game extends Component {
     )
     const nextTile = gameBoard.getTileNode(nextHeadPosition)
 
-    const isAnyFootEaten = gameBoard.eatFoodByIndex(nextHeadPosition.x, nextHeadPosition.y)
+    const foodEaten = gameBoard.eatFoodByIndex(nextHeadPosition.x, nextHeadPosition.y)
 
     snake.handleSwallowingFood()
 
@@ -289,18 +296,26 @@ export class Game extends Component {
       this.handleGameOver()
     }
 
-    if (isAnyFootEaten) {
-      this.handleFoodEaten(gameBoard, snake)
+    if (foodEaten) {
+      this.handleFoodEaten(gameBoard, snake, foodEaten)
     }
 
   }
 
-  private handleFoodEaten (gameBoard: GameBoard, snake: Snake) {
+  private handleFoodEaten (gameBoard: GameBoard, snake: Snake, score: number) {
     snake.eatFood()
 
     this.eatSfx?.play()
-    this.handleUpdateScore(1)
-    gameBoard.spawnRandomFood(snake)
+    this.handleUpdateScore(score)
+
+    /** Only spawn non bonus food if snake eat non bonus food */
+    if (score === 1) {
+      gameBoard.spawnRandomFood(snake)
+    }
+
+    // if (this.currentScore % 2 === 0) {
+    //   gameBoard.spawnRandomFood(snake, true)
+    // }
   }
 
   private setupHighscore () {
@@ -331,6 +346,7 @@ export class Game extends Component {
   }
 
   private handleGameOver () {
+    this.unschedule(this.spawnBonusFoodCallback)
     this.invalidLevelText?.show(false)
     this.gameoverText?.show(true)
     this.gameoverText?.updateScore(this.currentScore)

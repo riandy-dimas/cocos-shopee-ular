@@ -90,10 +90,39 @@ export function getAssets() {
     localUrl: 'image/game/sprite_apple'
   })
   assets.push({
+    key: ASSET_KEY.MELON_OBJECT,
+    type: ASSET_TYPE.IMAGE,
+    url: '',
+    localUrl: 'image/game/melon_sprite'
+  })
+  assets.push({
+    key: ASSET_KEY.BANANA_OBJECT,
+    type: ASSET_TYPE.IMAGE,
+    url: '',
+    localUrl: 'image/game/banana_sprite'
+  })
+  assets.push({
+    key: ASSET_KEY.BASKET_OBJECT,
+    type: ASSET_TYPE.IMAGE,
+    url: '',
+    localUrl: 'image/game/basket_sprite'
+  })
+  assets.push({
     key: ASSET_KEY.TROPHY_OBJECT,
     type: ASSET_TYPE.IMAGE,
     url: '',
     localUrl: 'image/game/sprite_trophy'
+  })
+  assets.push({
+    key: ASSET_KEY.COIN_OBJECT,
+    type: ASSET_TYPE.SPRITESHEET,
+    url: '',
+    localUrl: 'image/game/spritesheet_coin',
+    config: {
+      frameWidth: 171,
+      frameHeight: 171,
+      paddingX: 25,
+    }
   })
   
   // Snake Player
