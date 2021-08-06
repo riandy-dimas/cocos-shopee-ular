@@ -3134,7 +3134,7 @@
         "__id__": 112
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 158
@@ -3613,6 +3613,12 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "scoreLabel": {
+      "__id__": 117
+    },
+    "scoreValue": {
+      "__id__": 121
+    },
     "_id": "7dgam8JwlKLrCyvZ5NBTlG"
   },
   {
@@ -3882,6 +3888,7 @@
     "_lineHeight": 36,
     "_overflow": 1,
     "_enableWrapText": false,
+    "_font": null,
     "_isSystemFontUsed": true,
     "_isItalic": false,
     "_isBold": false,
@@ -4261,6 +4268,7 @@
     "_lineHeight": 36,
     "_overflow": 1,
     "_enableWrapText": false,
+    "_font": null,
     "_isSystemFontUsed": true,
     "_isItalic": false,
     "_isBold": false,

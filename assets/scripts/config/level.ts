@@ -34,6 +34,76 @@ const level0: TLevelConfig = {
   }
 }
 
+const level1: TLevelConfig = {
+  maze: [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0],
+    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+  ],
+  snake: {
+    parts: [
+      { x: 0, y: 1 },
+      { x: 0, y: 2 },
+      { x: 0, y: 3 },
+    ],
+    velocity: {
+      initial: 0.3,
+      accelerateMultiplier: 0.9,
+      accelerateEvery: 2,
+      minimum: 0.12,
+    }
+  }
+}
+
+const level2: TLevelConfig = {
+  maze: [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ],
+  snake: {
+    parts: [
+      { y: 2, x: 11 },
+      { y: 1, x: 11 },
+      { y: 0, x: 11 },
+      { y: 0, x: 10 },
+      { y: 0, x: 9 },
+    ],
+    velocity: {
+      initial: 0.3,
+      accelerateMultiplier: 0.9,
+      accelerateEvery: 2,
+      minimum: 0.12,
+    }
+  }
+}
+
+const level_valid = [
+  level0,
+  level1,
+  level2,
+]
+
 const level_invalid: TLevelConfig = {
   maze: [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -66,12 +136,23 @@ const level_invalid: TLevelConfig = {
   }
 }
 
-export const getLevelConfig = (level: number) => {
-  switch (level) {
-    case 0:
-      return level0;
-  
-    default:
-      return level_invalid;
-  }
+export function getLevelConfig() {
+  return getLevelFromParam() || getRandomLevel();
+}
+
+const getLevelFromParam = () => {
+  const levelParam = new URL(window.location.href).searchParams.get('level');
+  if (!levelParam) return undefined
+  return getLevelById(Number(levelParam));
+}
+
+const getLevelById = (level: number) => {
+  console.log('zzz', level)
+  if (level < 0) return level_invalid
+  if (level < level_valid.length) return level_valid[level]
+  return level_invalid
+}
+
+const getRandomLevel = () => {
+  return getLevelById(Math.floor(Math.random() * level_valid.length))
 }

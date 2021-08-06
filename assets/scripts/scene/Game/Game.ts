@@ -94,7 +94,7 @@ export class Game extends Component {
   public readonly invalidLevelText?: InvalidLevelText
 
   onLoad () {
-    this.levelConfig = getLevelConfig(1)
+    this.levelConfig = getLevelConfig();
   }
   
   start () {
@@ -122,14 +122,13 @@ export class Game extends Component {
 
     if (!cancelButton || !playAgainButton) return
 
-    cancelButton.configureButton('#E5E5E5', 'Cancel', '#535753', 36)
-    cancelButton.node.setPosition(v3(0, -55, 0))
-    playAgainButton.node.active = false;
-
     this.gameGuideText?.showNode(false)
     this.gameoverText?.show(false)
     this.invalidLevelText?.show(true)
     this.gameOverDialogue?.show()
+    cancelButton.configureButton('#E5E5E5', 'Cancel', '#535753', 36)
+    cancelButton.node.setPosition(v3(0, -55, 0))
+    playAgainButton.node.active = false;
     this.showModal();
     
   }
@@ -337,8 +336,8 @@ export class Game extends Component {
     this.gameoverText?.updateScore(this.currentScore)
     this.crashSfx?.play()
     this.snake?.doDie()
-    this.setupDialogueButton();
     this.showModal();
+    this.setupDialogueButton();
   }
   
 }
